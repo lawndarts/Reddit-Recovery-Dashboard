@@ -11,12 +11,12 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-light pt-2">
+    <nav class="navbar navbar-expand-md navbar-light p-0 ps-2 pt-1" style="background-color: rgb(210, 233, 211);">
         <a href="/" class="text-decoration-none">
             <div>
             <p class="title">
                 <!-- <img src="redditLogo.png" alt=""> -->
-                <span style="color: rgb(81, 129, 201);">Reddit</span>
+                <span style="color: orange;">Reddit</span>
                 <span class='titleSpan'>Recovery</span>
                 <span class='titleSpan'>Support</span>
                 <span class='titleSpan'>Dashboard</span>
@@ -26,8 +26,8 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse pt-2" id="navbarTogglerDemo02">
-        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav ms-auto mt-lg-0">
           <li class="nav-item ml-1">
             <p><a class="nav-link" href="/">Home</a></p>
           </li>
@@ -59,6 +59,10 @@
   body{
     background-color: #a7e6ac;
     color: rgb(99, 96, 96);
+
+  }
+  .titleSpan{
+    color: rgb(68, 68, 68);
   }
 </style>
 {% block scripts %} {% endblock %}

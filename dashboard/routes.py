@@ -1,15 +1,13 @@
+#Need flask/flask_login packages below, flask-sqlalchemy, and psychopg2 installed in working python environment
 
 from dashboard import app
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
-import praw, requests, json, sys, socket, random
+import praw, random
 from dashboard.models import User
 from dashboard import stats
 
-
-
 from dashboard.models import  User
-# from market.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm
 from dashboard import db
 
 scope_input = '*'
@@ -38,7 +36,16 @@ def auth():
     print('code:', code)
     print(reddit.auth.authorize(code))
     print(reddit.user.me())
-
+    user = User.query.filter_by(username=str(reddit.user.me())).first()
+    if user:
+        login_user(user)
+        flash(f"Welcome back. You are logged in as {user.username}", category='success')
+    else:
+        user = User(username=str(reddit.user.me()))
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        flash(f"Account successfully created. You are logged in as {user.username}", category='success')
     return redirect(url_for('dashboard_page'))
 
 @app.route('/dashboard')
