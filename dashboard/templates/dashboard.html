@@ -6,13 +6,33 @@
 
 {% block body %}
 
-<div class="container-fluid">
+<div class="container-fluid m-4" ">
   <div class="row">
-    <div class="col-md-4 chartbox">
+    <!-- <div class="col-md-4 chartbox">
       <canvas id="myChart" style="width:100%;max-width:500px"></canvas>
-    </div>
-    <div class="col-md-3">
+    </div> -->
+    <!-- <div class="col-md-3">
       <canvas id="pieChart1" style="width:100%;max-width:500px"></canvas>
+    </div> -->
+  </div>
+</div>
+<div class="container rounded shadow p-2 mb-5 bg-light">
+  
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h3>Some Stats</h3>
+    </div>
+    <div class="col">
+      <div class="col-md-3 float-end">
+        <canvas id="pieChart1" style="width:100%; max-width: 10em;"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="col-md-4 chartbox float-end">
+        <canvas id="myChart" style="width:100%;max-width:500px"></canvas>
+      </div>
     </div>
   </div>
 </div>

@@ -51,6 +51,7 @@ def auth():
     return redirect(url_for('dashboard_page'))
 
 @app.route('/dashboard')
+@login_required
 def dashboard_page():  
     jsdict = stats.postingActivityDay(reddit)
     topSubs = stats.topTenSubreddits(reddit)
