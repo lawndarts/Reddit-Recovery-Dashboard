@@ -7,7 +7,6 @@ import praw, random
 from dashboard.models import User
 from dashboard import stats
 
-from dashboard.models import  User
 from dashboard import db
 
 scope_input = '*'
@@ -36,16 +35,19 @@ def auth():
     print('code:', code)
     print(reddit.auth.authorize(code))
     print(reddit.user.me())
-    user = User.query.filter_by(username=str(reddit.user.me())).first()
+    uname = str(reddit.user.me())
+    user = User.query.filter_by(username=uname).first()
     if user:
         login_user(user)
         flash(f"Welcome back. You are logged in as {user.username}", category='success')
+        print(f"Welcome back. You are logged in as {user.username}")
     else:
-        user = User(username=str(reddit.user.me()))
+        user = User(username=uname)
         db.session.add(user)
         db.session.commit()
         login_user(user)
         flash(f"Account successfully created. You are logged in as {user.username}", category='success')
+        print(f"Account successfully created. You are logged in as {user.username}")
     return redirect(url_for('dashboard_page'))
 
 @app.route('/dashboard')
