@@ -52,18 +52,14 @@
         -->
       </div>
     </nav>
+   
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
-            <div class="alert container alert-{{ category }}">
-              <div class="row">
-                <div class="col-11">
-                  {{ message }}
-                </div>
-                <div class="col-1">
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              </div>
+            
+            <div class="alert alert-success alert-dismissible alert-{{ category }}">
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              {{ message }}
             </div>
         {% endfor %}
         {% endif %}

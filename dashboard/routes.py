@@ -53,10 +53,12 @@ def auth():
 @app.route('/dashboard')
 @login_required
 def dashboard_page():  
-    jsdict = stats.postingActivityDay(reddit)
-    topSubs = stats.topTenSubreddits(reddit)
-    something = stats.averageCommentLengths(reddit)
-    return render_template('dashboard.html', jsdict=jsdict, topSubs = topSubs, something = something)
+    #why do I need to make the comments object again? 
+    comments =  reddit.user.me().comments.new(limit=50)
+    jsdict = stats.postingActivityDay(comments)
+    comments =  reddit.user.me().comments.new(limit=50)
+    topSubs = stats.topTenSubreddits(comments)
+    return render_template('dashboard.html', jsdict=jsdict, topSubs = topSubs)
     
 
 
