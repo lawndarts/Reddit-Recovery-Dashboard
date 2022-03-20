@@ -26,7 +26,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <div class="collapse navbar-collapse pt-1" id="navbarTogglerDemo02">
         <ul class="navbar-nav ms-auto mt-lg-0">
           <li class="nav-item ml-1">
             <p><a class="nav-link" href="/">Home</a></p>
@@ -35,13 +35,21 @@
             <p><a class="nav-link ml-1" href="/about">About</a></p>
           </li>
           <li class="nav-item ml-1">
-            <p><a class="nav-link" href="/faq">FAQ</a></p>
+            <p><a class="nav-link" href="{{ url_for('dashboard_page') }}">Dashboard</a></p>
           </li>
           <li class="nav-item ml-1">
-            <p><a class="nav-link" href="/contact">Contact</a></p>
+            <p>
+              <a class="nav-link" href="https://reddit.com">
+                <img src="static\reddit-square-color.png" class="img-fluid" style="max-width: 2em;" alt="">
+              </a>
+            </p>
           </li>
           <li class="nav-item ml-1">
-            <p><a class="nav-link" href="https://reddit.com"> Reddit</a></p>
+            <p><a class="nav-link" href="/support_subs">Current Support Subreddits</a></p>
+            
+          </li>
+          <li class="nav-item ml-1">
+            <p><a class="nav-link" href="https://reddit.com"> Reddit.com</a></p>
           </li>
         </ul>
         <!-- 

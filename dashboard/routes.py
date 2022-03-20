@@ -50,15 +50,24 @@ def auth():
         print(f"Account successfully created. You are logged in as {user.username}")
     return redirect(url_for('dashboard_page'))
 
+@app.route('/support_subs')
+def show_support_subs():
+
+    return render_template('support_subs.html')
+
 @app.route('/dashboard')
 @login_required
 def dashboard_page():  
-    #why do I need to make the comments object again? 
+    #why do I need to make the comments object multiple times? 
     comments =  reddit.user.me().comments.new(limit=50)
     jsdict = stats.postingActivityDay(comments)
     comments =  reddit.user.me().comments.new(limit=50)
     topSubs = stats.topTenSubreddits(comments)
-    return render_template('dashboard.html', jsdict=jsdict, topSubs = topSubs)
+    comments =  reddit.user.me().comments.new(limit=50)
+    avgStats = stats.averageCommentLengthSupport(comments)
+    comments =  reddit.user.me().comments.new(limit=50)
+    wordsDict = stats.wordsDict(comments)
+    return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,wordsDict=wordsDict)
     
 
 

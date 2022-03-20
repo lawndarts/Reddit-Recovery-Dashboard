@@ -6,23 +6,26 @@
 
 {% block body %}
 
-<div class="container rounded shadow p-2  mb-5 bg-white rounded pb-5 mt-5"">
+<div class="container rounded shadow p-2  mb-5 bg-white rounded pb-5 mt-5">
     <div class="row">
         <div class="col-lg-6 d-flex align-items-center">
             <p class="text-start ps-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia tempore saepe dolor, nemo vel qui accusamus quidem consequuntur
-                 officia, ipsum soluta enim sapiente adipisci maiores esse eveniet pariatur! Reiciendis, ipsam!
-                lorem
+            Welcome to Reddit Recovery Support. Use this dashboard to see your engagement patterns
+            over various recovery related subreddits.
+            <br><br>
+            Before you sign in, please log into the Reddit account that you most often use to discuss
+            substance use/ recovery
+
         </p>
     </div>
         <div class="col-lg-6 ">
             <div class="mt-5 w-50 border rounded shadow-sm mt-2 mx-auto p-3 text-center">
                 <p class="text-start">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, expedita ducimus. Natus libero nesciunt laudantium, perferendis excepturi praesentium error,
-                     dolorem officia repellendus consequatur quam eum voluptatum neque voluptatem quia corporis.
+                By clicking "Link Account" you will authorize the support dashboard to pull your post, comment
+                and upvote history
                 </p>
                 <div class="mt-5">
-                    <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Register</a>
+                    <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Link Account</a>
                     <!-- <form method="get" action="/login">
                     <button class ="btn btn-outline-primary"type="submit">Authenticate</button> -->
                 </form>
