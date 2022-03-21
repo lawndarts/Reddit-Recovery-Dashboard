@@ -9,5 +9,5 @@ app.config['SECRET_KEY'] = '00929c5480c821a729d91a71'
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "home_page"
-# login_manager.login_message_category = "info"
+login_manager.login_message_category = "info"
 from dashboard import routes

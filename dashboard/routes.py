@@ -5,6 +5,7 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 import praw, random
 from dashboard.models import User
+# Import dashboard python functions
 from dashboard import stats
 
 from dashboard import db
@@ -57,9 +58,13 @@ def show_support_subs():
 
 @app.route('/dashboard')
 @login_required
-def dashboard_page():  
+def dashboard_page():
+    print(current_user)
     #why do I need to make the comments object multiple times? 
+    # if type(comments) == 'NoneType':
+    #     return render_template(url_for('error_page'))
     comments =  reddit.user.me().comments.new(limit=50)
+    
     jsdict = stats.postingActivityDay(comments)
     comments =  reddit.user.me().comments.new(limit=50)
     topSubs = stats.topTenSubreddits(comments)
@@ -69,7 +74,11 @@ def dashboard_page():
     wordsDict = stats.wordsDict(comments)
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,wordsDict=wordsDict)
     
-
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You have been logged out', category='info')
+    return redirect(url_for('home_page'))
 
 
 
