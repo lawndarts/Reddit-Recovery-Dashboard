@@ -24,7 +24,12 @@ function setupTopSubs(dict){
     type: 'bar',
     data: data,
     options: {
-
+      plugins: {
+          // title: {
+          //   display: true,
+          //   text: 'Something'
+          // }
+      }
     }
   };
   const myChart = new Chart(
@@ -40,41 +45,71 @@ function setupSubPieChart(topSubs){
         if(a[1] < b[1]) { return 1; }
         if(a[1] > b[1]) { return -1; }
         return 0;
-    })
-    subsArray = []
-    countsArray = []
-    for (let i = 0; i < 10; i++) {
-    subsArray.push(entries[i][0]);
-    countsArray.push(entries[i][1]);
-    }
-    const dataPie = {
-    labels: subsArray,
-    datasets: [{
-    label: 'My First Dataset',
-    data: countsArray,
-    backgroundColor: [
-    'rgb(255, 99, 132)',
-    'rgb(54, 162, 235)',
-    'rgb(255, 205, 86)'
-    ],
-    hoverOffset: 4
-    }]
+      })
+      subsArray = []
+      countsArray = []
+      for (let i = 0; i < 10; i++) {
+      subsArray.push(entries[i][0]);
+      countsArray.push(entries[i][1]);
+      }
+      const dataPie = {
+      labels: subsArray,
+      datasets: [{
+      label: 'My First Dataset',
+      data: countsArray,
+      backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+      ],
+      hoverOffset: 4
+      }]
     };
 
-    const configPie = {
-    type: 'pie',
-    data: dataPie,
-    options: {
-    plugins:{
-    legend:{
-        display: false
+      const configPie = {
+      type: 'pie',
+      data: dataPie,
+      options: {
+      plugins:{
+        title: {
+          display: true,
+          text: 'Hover to see Subreddits'
+        },
+        legend:{
+          display: false
             }
         }
-    }
+      }
     };
 
     const pieChart1 = new Chart(
     document.getElementById('pieChart1'),
     configPie
     );
+}
+function setupWordCloud(words){
+  
+  const chart = new Chart(document.getElementById("canvas").getContext("2d"), {
+    type: "wordCloud",
+    data: {
+      labels: words.map((d) => d.key),
+      datasets: [
+        {
+          label: "",
+          data: words.map((d) => 10 + d.value * 10)
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: false,
+        text: "Chart.js Word Cloud"
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
 }

@@ -7,7 +7,7 @@ def postingActivityDay(comments):
     DoTW = {'Sunday': 0, 'Monday': 0, 'Tuesday': 0, 'Wednesday': 0, 'Thursday': 0, 'Friday': 0, 'Saturday': 0,}
     # comments =  reddit.user.me().comments.new(limit=50)
     for comment in comments:
-        if(str(comment.subreddit) in supportSubs):
+        # if(str(comment.subreddit) in supportSubs):
             unix_val = datetime.fromtimestamp(comment.created)
             day = unix_val.weekday()
             if(day == 0): day = 'Sunday'
@@ -64,7 +64,17 @@ def averageCommentLengthSupport(comments):
 
     avg = np.average(commentLengths)
     median = np.median(commentLengths)
+    limited_float = round(avg, 2)
     output = []
-    output.append(avg) 
+    output.append(limited_float) 
     output.append(median)
     return output
+
+def getSupportSubs():
+    subsDict = {}
+    with open('dashboard\subreddits.txt') as myfile:
+        for line in myfile:
+            name, description = line.partition("=")[::2]
+            subsDict[name.strip()] = description.strip()
+    print(subsDict)
+    return subsDict

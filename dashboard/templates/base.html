@@ -37,9 +37,6 @@
             <p><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></p>
           </li>
           {% endif %}
-          <li class="nav-item ml-1">
-            <p><a class="nav-link" href="/">Home</a></p>
-          </li>
           <li class="nav-item">
             <p><a class="nav-link ml-1" href="/about">About</a></p>
           </li>
@@ -54,7 +51,7 @@
             </p>
           </li>
           <li class="nav-item ml-1">
-            <p><a class="nav-link" href="/support_subs">Current Support Subreddits</a></p>
+            <p><a class="nav-link" href="{{ url_for('show_support_subs') }}">Current Support Subreddits</a></p>
             
           </li>
           <li class="nav-item ml-1">

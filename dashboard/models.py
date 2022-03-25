@@ -15,3 +15,22 @@ class User(db.Model, UserMixin):
     def get_user_id(self):
         return self.id
 
+class Post(db.Model):
+    __tablename__ = 'posts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    site_id= db.Column(db.Integer(), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    subreddit = db.Column(db.String(200), nullable=False)
+    body_text = db.Column(db.String(1000), nullable=False)
+    num_comments =db.Column(db.Integer(), nullable=False)
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    site_id= db.Column(db.Integer(), nullable=False)
+    date_created = db.Column(db.Float(), nullable=False)
+    parent_post = db.Column(db.String(100), nullable=False)
+    parent_sub = db.Column(db.String(100),nullable=False)
+    body_text = db.Column(db.String(1000),nullable=False)

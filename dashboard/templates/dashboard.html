@@ -3,17 +3,13 @@
 Dashboard
 {% endblock %}
 {% block head %}
-
 {% endblock %}
-
 {% block body %}
-
-
 <div id = 'firstContainer' class="container rounded shadow p-2 m-4 bg-light ">
   
   <div class="row">
     <div class="col-md-12 text-center">
-      <h3>Some Stats</h3>
+      <h3>{{ current_user.username }}</h3>
     </div> 
   </div>
   <div class="row">
@@ -26,20 +22,19 @@ Dashboard
       <canvas id="pieChart1" style="width:100%; max-width: 10em;"></canvas>
     </div>
   </div>
+  <hr/>
   <div class="row">
     <div class="col">
-      something
+      
     </div>
-    
       <div class="col-md-4 chartbox float-end">
+        
         <canvas id="myChart" style="width:100%; max-width:500px"></canvas>
       </div>
-    
   </div>
 </div>
-
+<canvas id="canvas"></canvas>
 {% endblock %}
-
 {% block scripts %}
 <!-- Import javascript functions (should be able to add to existing route)-->
 <script type="text/javascript"
@@ -50,6 +45,8 @@ Dashboard
     setupTopSubs(dict)
     var topSubs = JSON.parse('{{  topSubs  | tojson | safe  }}')
     setupSubPieChart(topSubs)
+    var wordsDict = JSON.parse('{{  wordsDict  | tojson | safe  }}')
+    setupWordCloud(wordsDict)
 </script>
 
 {% endblock %}

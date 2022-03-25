@@ -53,8 +53,8 @@ def auth():
 
 @app.route('/support_subs')
 def show_support_subs():
-
-    return render_template('support_subs.html')
+    subsDict = stats.getSupportSubs()
+    return render_template('support_subs.html', subsDict = subsDict)
 
 @app.route('/dashboard')
 @login_required
