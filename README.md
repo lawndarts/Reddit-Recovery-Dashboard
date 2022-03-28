@@ -8,3 +8,7 @@ from dashboard import db
 db.create_all()
 
 Comment and post models from monty are commented out for now. You only need to make the table for "users" right now.
+
+Exact syntax used to create users table in postgres terminal 
+
+CREATE TABLE users(id SERIAL PRIMARY KEY,username VARCHAR(25) UNIQUE NOT NULL);
