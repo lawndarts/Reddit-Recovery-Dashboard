@@ -78,3 +78,99 @@ def getSupportSubs():
             subsDict[name.strip()] = description.strip()
     print(subsDict)
     return subsDict
+
+def get_subreddit_stats(subreddit):
+    '''
+    Get stats for a subreddit.
+
+    Keyword arguments:
+    subreddit = an instance of Praw's subreddit class. 
+
+    Returns a dictionary.
+    
+    '''
+    sub_stats = {
+        'title': subreddit.display_name,
+        'description': subreddit.public_description,
+        'subscriber_count': subreddit.subscribers
+    }
+    return sub_stats
+
+def get_post_history(user):
+    '''
+    Get user's post history.
+
+    Keyword arguments:
+    user = an instance of Praw's redditor class.
+
+    Returns a list of each post (as a dictionary).
+    
+    '''
+    post_history = []
+    for submission in user.submissions.new():
+        temp = submission.subreddit
+        post = {
+            'id': submission.id,
+            'title': submission.title,
+            'created': submission.created_utc,
+            'subreddit': temp.display_name,
+            'body':submission.selftext,
+            'num_comments': submission.num_comments
+        } 
+        post_history.append(post)
+    return post_history
+
+def get_posts_in_subreddit(post_history, subreddit):
+    '''
+    Get user's posts in subreddit.
+
+    Keyword arguments:
+    post_history = list returned from get_post_history(user).
+    subreddit = instance of Praw's subreddit class.
+
+    Returns a list of : [title (str), date created (str), parent subreddit (Subreddit class), body text (str), number of comments (int) ]
+    '''
+    posts_in_subreddit = []
+    for post in post_history:
+        if post['subreddit'] == subreddit:
+            posts_in_subreddit.append(post)
+    return posts_in_subreddit
+
+def get_comment_history(user):
+    '''
+    Get user's comment history.
+
+    Keyword arguments:
+    user = an instance of Praw's redditor class.
+
+    Returns a list: [date created, comment id (str), parent subreddit (Subreddit class), body text (str)]
+    
+    '''
+    comment_history = []
+    for comment in user.comments.new():
+        temp = comment.subreddit
+        x = {
+            'id': comment.id,
+            'created': comment.created_utc,
+            'post': comment.submission.id,
+            'subreddit': temp.display_name,
+            'body': comment.body
+        }
+        comment_history.append(x)
+    return comment_history
+
+def get_comments_in_subreddit(comment_history, subreddit):
+    '''
+    Get user's comments in a subreddit.
+
+    Keyword arguments:
+    comment_history = list returned from get_comment_history(user).
+    subreddit = instance of Praw's subreddit class.
+
+    Returns a list: [date created, comment id (str), parent subreddit (Subreddit class), body text (str)]
+    '''
+    comments_in_subreddit = []
+    for comment in comment_history:
+        if comment["subreddit"] == subreddit.display_name:
+            comments_in_subreddit.append(comment)
+    return comments_in_subreddit
