@@ -73,6 +73,24 @@ def dashboard_page():
     comments =  reddit.user.me().comments.new(limit=50)
     wordsDict = stats.wordsDict(comments)
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,wordsDict=wordsDict)
+
+@app.route('/subreddit/<name>')
+def subreddit(name):
+    #replace with database query
+    post_history = stats.get_post_history(reddit.user.me())
+    comment_history = stats.get_comment_history(reddit.user.me())
+
+    posts_in_sub = stats.get_posts_in_subreddit(post_history, reddit.subreddit(name))
+    post_count = len(posts_in_sub)
+    comments_in_sub = stats.get_comments_in_subreddit(comment_history, reddit.subreddit(name))
+    comment_count = len(comments_in_sub)
+    sub_stats = stats.get_subreddit_stats(reddit.subreddit(name))
+    title = sub_stats['title']
+    description = sub_stats['description']
+    subscriber_count = sub_stats['subscriber_count']
+    
+    return render_template("subreddit.html", title = title, description = description, subscriber_count = subscriber_count, post_count = post_count, comment_count = comment_count)
+
     
 @app.route('/logout')
 def logout():
