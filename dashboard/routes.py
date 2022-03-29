@@ -71,8 +71,7 @@ def dashboard_page():
     comments =  reddit.user.me().comments.new(limit=50)
     avgStats = stats.averageCommentLengthSupport(comments)
     comments =  reddit.user.me().comments.new(limit=50)
-    wordsDict = stats.wordsDict(comments)
-    return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,wordsDict=wordsDict)
+    return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats)
     
 @app.route('/logout')
 def logout():

@@ -87,29 +87,3 @@ function setupSubPieChart(topSubs){
     configPie
     );
 }
-function setupWordCloud(words){
-  
-  const chart = new Chart(document.getElementById("canvas").getContext("2d"), {
-    type: "wordCloud",
-    data: {
-      labels: words.map((d) => d.key),
-      datasets: [
-        {
-          label: "",
-          data: words.map((d) => 10 + d.value * 10)
-        }
-      ]
-    },
-    options: {
-      title: {
-        display: false,
-        text: "Chart.js Word Cloud"
-      },
-      plugins: {
-        legend: {
-          display: false
-        }
-      }
-    }
-  });
-}
