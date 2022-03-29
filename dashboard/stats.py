@@ -2,10 +2,18 @@
 from datetime import datetime
 import numpy as np
 
+subsDict = {}
+with open('dashboard\subreddits.txt') as myfile:
+    for line in myfile:
+        name, description = line.partition("=")[::2]
+        subsDict[name.strip()] = description.strip()
+supportSubs = list(subsDict.keys())
+for i in range(len(supportSubs)):
+    supportSubs[i] = supportSubs[i][2:]
+
 def postingActivityDay(comments):
     supportSubs = ['test', 'videos','pcgaming']
     DoTW = {'Sunday': 0, 'Monday': 0, 'Tuesday': 0, 'Wednesday': 0, 'Thursday': 0, 'Friday': 0, 'Saturday': 0,}
-    # comments =  reddit.user.me().comments.new(limit=50)
     for comment in comments:
         # if(str(comment.subreddit) in supportSubs):
             unix_val = datetime.fromtimestamp(comment.created)
@@ -24,20 +32,13 @@ def postingActivityDay(comments):
 
 def topTenSubreddits(comments):
     subList = {}
-    # comments =  reddit.user.me().comments.new(limit=500)
     for comment in comments:
         if(str(comment.subreddit) in subList):
             subList[str(comment.subreddit)] += 1
         else:
             subList[str(comment.subreddit)] = 1
             
-    # topSubs = sorted(subList, key=subList.get, reverse=True)[:10]
-    print(subList)
     return subList
-#I should probably change this to also compile a list of submissions
-#also this all will probably need to be changed to pull this from a database
-def random(comments):
-    print('something')
 
 def wordsDict(comments):
     supportSubs = ['test', 'videos','pcgaming']
@@ -71,12 +72,6 @@ def averageCommentLengthSupport(comments):
     return output
 
 def getSupportSubs():
-    subsDict = {}
-    with open('dashboard\subreddits.txt') as myfile:
-        for line in myfile:
-            name, description = line.partition("=")[::2]
-            subsDict[name.strip()] = description.strip()
-    print(subsDict)
     return subsDict
 
 def get_subreddit_stats(subreddit):
