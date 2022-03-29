@@ -78,3 +78,23 @@ def getSupportSubs():
             subsDict[name.strip()] = description.strip()
     print(subsDict)
     return subsDict
+
+def getUpvotedSubreddits(user):
+    global sortedSubDict
+    #get posts upvoted by user
+    #user = reddit.redditor('kah277')
+    upvotedPosts = user.upvoted()
+
+    #put subreddit name and upvote totals in dictionary
+    subredditDict = {}
+
+    for u in upvotedPosts:
+
+        if u.subreddit.display_name not in subredditDict:
+            subredditDict[u.subreddit.display_name] = 1
+        else:
+            subredditDict[u.subreddit.display_name]+=1
+
+    #sort it from highest count to lowest
+    sortedSubDict = dict(sorted(subredditDict.items(), key=lambda x: x[1], reverse=True))
+    return sortedSubDict

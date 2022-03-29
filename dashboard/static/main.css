@@ -1,3 +1,38 @@
 @media (max-width: 1200px) {
      
 }
+body{
+    background-color: rgb(255, 255, 255);
+    color: rgb(99, 96, 96);
+}
+nav{
+    background-color: #a7e6ac;
+    z-index: 9999;
+}
+.titleSpan{
+    color: rgb(68, 68, 68);
+}
+.sidebar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 100;
+    padding: 70px 0 0 10px;
+    border-right: 1px solid #d3d3d3;
+    background-color: rgb(210, 233, 211);
+}
+
+.left-sidebar {
+    position: sticky;
+    top:0;
+    height: calc(100vh - 70px)
+}
+main {
+    padding-top: 30px;
+    margin-left: auto;
+}
+main .card {
+    margin-bottom: 20px;
+    height: 525px;
+}
