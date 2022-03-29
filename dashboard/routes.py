@@ -71,15 +71,13 @@ def dashboard_page():
     comments =  reddit.user.me().comments.new(limit=50)
     avgStats = stats.averageCommentLengthSupport(comments)
     comments =  reddit.user.me().comments.new(limit=50)
-    wordsDict = stats.wordsDict(comments)
-    return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,wordsDict=wordsDict)
+    return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):
     #replace with database query
     post_history = stats.get_post_history(reddit.user.me())
     comment_history = stats.get_comment_history(reddit.user.me())
-
     posts_in_sub = stats.get_posts_in_subreddit(post_history, reddit.subreddit(name))
     post_count = len(posts_in_sub)
     comments_in_sub = stats.get_comments_in_subreddit(comment_history, reddit.subreddit(name))

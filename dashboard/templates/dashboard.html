@@ -62,8 +62,6 @@ Dashboard
     setupTopSubs(dict)
     var topSubs = JSON.parse('{{  topSubs  | tojson | safe  }}')
     setupSubPieChart(topSubs)
-    var wordsDict = JSON.parse('{{  wordsDict  | tojson | safe  }}')
-    setupWordCloud(wordsDict)
 </script>
 
 {% endblock %}
