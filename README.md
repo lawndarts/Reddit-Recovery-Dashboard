@@ -12,7 +12,8 @@ EITHER:
 OR: 
 Change this line in init_py:
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost/first'
-postgressql://[username]:[password]@localhost/[databasename]
+to
+'postgressql://[username]:[password]@localhost/[databasename]'
 
 These are the commands to run from a python terminal. 
 
