@@ -71,7 +71,10 @@ def dashboard_page():
     comments =  reddit.user.me().comments.new(limit=50)
     avgStats = stats.averageCommentLengthSupport(comments)
     comments =  reddit.user.me().comments.new(limit=50)
-    return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats)
+    sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
+    li = list(sortedSubDict.keys())
+    upvoteCounts = list(sortedSubDict.values())      
+    return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,li=li,upvoteCounts=upvoteCounts)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):
@@ -85,7 +88,7 @@ def subreddit(name):
     sub_stats = stats.get_subreddit_stats(reddit.subreddit(name))
     title = sub_stats['title']
     description = sub_stats['description']
-    subscriber_count = sub_stats['subscriber_count']
+    subscriber_count = sub_stats['subscriber_count']  
     
     return render_template("subreddit.html", title = title, description = description, subscriber_count = subscriber_count, post_count = post_count, comment_count = comment_count)
 

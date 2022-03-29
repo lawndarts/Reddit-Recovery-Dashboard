@@ -3,54 +3,106 @@
 Dashboard
 {% endblock %}
 {% block head %}
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
 {% endblock %}
 {% block body %}
-<div id = 'firstContainer' class="container rounded shadow p-2 m-4 bg-light ">
+<body>
   
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <h3>{{ current_user.username }}</h3>
-    </div> 
-  </div>
-  <div class="row">
-    <div class="col">
-      <div>
-        <p class="pt-4 ps-4">Average Comment Length: &emsp;<strong>{{ avgStats[0] }} (Median: {{ avgStats[1] }})</strong></p>
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  
+    <h1> User Dashboard - {{ current_user.username }} </h1>
+    <hr>
+  
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Top Ten Subreddits</h5>
+              <ol class="dumblist">
+                  <li><a href="/subreddit/stopdrinking">stopdrinking</a></li>
+                  <li><a href="/subreddit/serviceadvisors">serviceadvisors</a></li>
+                  <li><a href="/subreddit/crochet">crochet</a></li>
+                  <li><a href="/subreddit/datingover30">datingoverforty</a></li>
+                  <li><a href="/subreddit/Justrolledintotheshop">Justrolledintotheshop</a></li>
+                  <li><a href="/subreddit/OkCupid">OkCupid</a></li>
+                  <li><a href="/subreddit/antiwork">antiwork</a></li>
+                  <li><a href="/subreddit/arbedeenwa">arbedeenwa</a></li>
+                  <li><a href="/subreddit/FriendsOver40">FriendsOver40</a></li>
+                  <li><a href="/subreddit/farcry">farcry</a></li>
+              </ol>              
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Top Subreddits based on Number of Upvoted Posts</h5>
+              <canvas id="upvoteSubreddits" width="300" height="300"></canvas>             
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-md-3 float-end">
-      <canvas id="pieChart1" style="width:100%; max-width: 10em;"></canvas>
-    </div>
-  </div>
-  <hr/>
-  <div class="row">
-    <div class="col">
       
-    </div>
-      <div class="col-md-4 chartbox float-end">
-        
-        <canvas id="myChart" style="width:100%; max-width:500px"></canvas>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Three</h5>
+              <canvas id="pieChart1" style="width:100%; max-width: 10em;"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Weekly Post Activity</h5>
+              <canvas id="myChart" width="300" height="300"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
-  </div>
-  <div class="row"> <!-- Placeholder Top 10 stuff-->
-    <div class="col-md-6">
-      <h2>Top 10 Subreddits</h2>
-      <ol class="dumblist">
-          <li><a href="/subreddit/stopdrinking">stopdrinking</a></li>
-          <li><a href="/subreddit/serviceadvisors">serviceadvisors</a></li>
-          <li><a href="/subreddit/crochet">crochet</a></li>
-          <li><a href="/subreddit/datingover30">datingoverforty</a></li>
-          <li><a href="/subreddit/Justrolledintotheshop">Justrolledintotheshop</a></li>
-          <li><a href="/subreddit/OkCupid">OkCupid</a></li>
-          <li><a href="/subreddit/antiwork">antiwork</a></li>
-          <li><a href="/subreddit/arbedeenwa">arbedeenwa</a></li>
-          <li><a href="/subreddit/FriendsOver40">FriendsOver40</a></li>
-          <li><a href="/subreddit/farcry">farcry</a></li>
-      </ol>
-    </div>
-  </div>
-</div>
-<canvas id="canvas"></canvas>
+  
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Comment Stats</h5>
+              <p class="card-text">Average Comment Length: &emsp;<strong>{{ avgStats[0] }} (Median: {{ avgStats[1] }})</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Six</h5>
+              <p class="card-text">Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Seven</h5>
+              <p class="card-text">Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Eight</h5>
+              <p class="card-text">Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+            </div>
+          </div>
+        </div>
+      </div>      
+  </main>
+  </body>
 {% endblock %}
 {% block scripts %}
 <!-- Import javascript functions (should be able to add to existing route)-->
@@ -62,6 +114,52 @@ Dashboard
     setupTopSubs(dict)
     var topSubs = JSON.parse('{{  topSubs  | tojson | safe  }}')
     setupSubPieChart(topSubs)
+</script>
+
+<script>
+  const ctx = document.getElementById('upvoteSubreddits').getContext('2d');
+const upvoteSubreddits= new Chart(ctx, {
+type: 'bar',
+data: {
+    labels: [
+        {% for item in range(10) %}
+            "{{ li[item] }}",
+        {% endfor %}
+    ],
+    datasets: [{
+        label: '# of upvoted posts',
+        data: [
+            {% for item in range(10) %}
+                {{ upvoteCounts[item] }},
+            {% endfor %}
+        ],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+    }]
+},
+options: {
+    scales: {
+        y: {
+            beginAtZero: true
+        }
+    }
+}
+});
 </script>
 
 {% endblock %}

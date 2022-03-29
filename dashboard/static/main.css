@@ -5,3 +5,21 @@
 .dumblist {
     padding-left: 2;
 }
+body{
+    background-color: rgb(255, 255, 255);
+    color: rgb(99, 96, 96);
+}
+nav{
+    background-color: #a7e6ac;
+    z-index: 9999;
+}
+.titleSpan{
+    color: rgb(68, 68, 68);
+}
+main {
+    padding-top: 30px;
+}
+main .card {
+    margin-bottom: 20px;
+    height: 525px;
+}
