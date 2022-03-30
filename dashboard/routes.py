@@ -66,15 +66,18 @@ def dashboard_page():
     comments =  reddit.user.me().comments.new(limit=50)
     
     jsdict = stats.postingActivityDay(comments)
-    comments =  reddit.user.me().comments.new(limit=50)
-    topSubs = stats.topTenSubreddits(comments)
+    comments =  reddit.user.me().comments.new(limit=500)
+    submissions = reddit.user.me().submissions.new()
+
+    topSubs = stats.activityCountSubreddit(comments, submissions)
     comments =  reddit.user.me().comments.new(limit=50)
     avgStats = stats.averageCommentLengthSupport(comments)
     comments =  reddit.user.me().comments.new(limit=50)
     sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
     li = list(sortedSubDict.keys())
     upvoteCounts = list(sortedSubDict.values())      
-    return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,li=li,upvoteCounts=upvoteCounts)
+    return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
+            li=li,upvoteCounts=upvoteCounts)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):

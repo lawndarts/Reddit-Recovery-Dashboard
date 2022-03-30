@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from xml.etree.ElementTree import Comment
 import numpy as np
 
 subsDict = {}
@@ -30,14 +31,18 @@ def postingActivityDay(comments):
     return DoTW
 
 
-def topTenSubreddits(comments):
+def activityCountSubreddit(comments, posts):
     subList = {}
     for comment in comments:
         if(str(comment.subreddit) in subList):
             subList[str(comment.subreddit)] += 1
         else:
             subList[str(comment.subreddit)] = 1
-            
+    for post in posts:
+        if(str(post.subreddit) in subList):
+            subList[str(post.subreddit)] += 1
+        else:
+            subList[str(post.subreddit)] = 1
     return subList
 
 def wordsDict(comments):
@@ -70,6 +75,15 @@ def averageCommentLengthSupport(comments):
     output.append(limited_float) 
     output.append(median)
     return output
+
+def findMostPopularSubreddit(user):
+    posts = get_post_history(user)
+    comments = get_comment_history(user)
+    print(len(posts))
+    print(len(comments))
+    dictionary = {}
+
+    return 'fuck'
 
 def getSupportSubs():
     return subsDict
