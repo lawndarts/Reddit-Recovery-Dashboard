@@ -44,7 +44,7 @@ def wordsDict(comments):
     supportSubs = ['test', 'videos','pcgaming']
     wordsMain = {}
     for comment in comments:
-        if(str(comment.subreddit) in supportSubs):
+        # if(str(comment.subreddit) in supportSubs):
             body = str(comment.body)
             wordList = body.split()
             for word in wordList:
@@ -58,7 +58,7 @@ def averageCommentLengthSupport(comments):
     commentLengths = []
     supportSubs = ['test', 'videos','pcgaming']
     for comment in comments:
-        if(str(comment.subreddit) in supportSubs):
+        # if(str(comment.subreddit) in supportSubs):
             body = str(comment.body)
             if(len(body) > 5): #dont count comments less than 5 characters
                 commentLengths.append(len(body))
