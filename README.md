@@ -18,7 +18,7 @@ to
 These are the commands to run from a python terminal. 
 
 3/30 Update: to set up new db models:
-- delete old table(s) from the psql (drop table users;)
+- delete old table(s) from psql (drop table users;)
 - run createTables.sql or copy and paste the code
 - run the code below in vscode terminal (or however you did it before)
 
