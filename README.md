@@ -21,6 +21,8 @@ These are the commands to run from a python terminal.
 - delete old table(s) from the psql (drop table users;)
 - run createTables.sql or copy and paste the code
 - run the code below in vscode terminal (or however you did it before)
+- 
+python
 
 from dashboard import db
 
