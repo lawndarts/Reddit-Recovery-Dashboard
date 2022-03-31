@@ -17,9 +17,13 @@ to
 
 These are the commands to run from a python terminal. 
 
-from dashboard import db
-db.create_all()
+3/30 Update: to set up new db models:
+- delete old table(s) from the psql (drop table users;)
+- run createTables.sql or copy and paste the code
+- run the code below in vscode terminal (or however you did it before)
 
-Comment and post models from monty are commented out for now. You only need to make the table for "users" right now.
+from dashboard import db
+
+db.create_all()
 
 
