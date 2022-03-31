@@ -29,16 +29,30 @@ def postingActivityDay(comments):
                 DoTW[day] += 1
     return DoTW
 
-
-def topTenSubreddits(comments):
-    subList = {}
+# returns two dictionaries in a list. One contains submission frequency,
+# the other has comment frequency both sorted by subreddit
+def activityCountSubreddit(comments, submissions):
+    subListComments = {}
+    subListSubmissions = {}
     for comment in comments:
-        if(str(comment.subreddit) in subList):
-            subList[str(comment.subreddit)] += 1
+        if(str(comment.subreddit) in subListComments):
+            subListComments[str(comment.subreddit)] += 1
         else:
-            subList[str(comment.subreddit)] = 1
-            
-    return subList
+            subListComments[str(comment.subreddit)] = 1
+    for submission in submissions:
+        if(str(submission.subreddit) in subListSubmissions):
+            subListSubmissions[str(submission.subreddit)] += 1
+        else:
+            subListSubmissions[str(submission.subreddit)] = 1
+    aList = []
+    aList.append(subListComments)
+    aList.append(subListSubmissions)
+    return aList
+
+def getMainSupportSub(topSubs):
+    #going to need a loop
+    max_key = max(topSubs[0], key=topSubs[0].get)
+    return max_key
 
 def wordsDict(comments):
     supportSubs = ['test', 'videos','pcgaming']
@@ -72,6 +86,7 @@ def averageCommentLengthSupport(comments):
     return output
 
 def getSupportSubs():
+    
     return subsDict
 
 def get_subreddit_stats(subreddit):
