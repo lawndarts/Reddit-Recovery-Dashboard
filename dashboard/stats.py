@@ -1,6 +1,5 @@
 
 from datetime import datetime
-from xml.etree.ElementTree import Comment
 import numpy as np
 
 subsDict = {}
@@ -30,26 +29,36 @@ def postingActivityDay(comments):
                 DoTW[day] += 1
     return DoTW
 
-
-def activityCountSubreddit(comments, posts):
-    subList = {}
+# returns two dictionaries in a list. One contains submission frequency,
+# the other has comment frequency both sorted by subreddit
+def activityCountSubreddit(comments, submissions):
+    subListComments = {}
+    subListSubmissions = {}
     for comment in comments:
-        if(str(comment.subreddit) in subList):
-            subList[str(comment.subreddit)] += 1
+        if(str(comment.subreddit) in subListComments):
+            subListComments[str(comment.subreddit)] += 1
         else:
-            subList[str(comment.subreddit)] = 1
-    for post in posts:
-        if(str(post.subreddit) in subList):
-            subList[str(post.subreddit)] += 1
+            subListComments[str(comment.subreddit)] = 1
+    for submission in submissions:
+        if(str(submission.subreddit) in subListSubmissions):
+            subListSubmissions[str(submission.subreddit)] += 1
         else:
-            subList[str(post.subreddit)] = 1
-    return subList
+            subListSubmissions[str(submission.subreddit)] = 1
+    aList = []
+    aList.append(subListComments)
+    aList.append(subListSubmissions)
+    return aList
+
+def getMainSupportSub(topSubs):
+    #going to need a loop
+    max_key = max(topSubs[0], key=topSubs[0].get)
+    return max_key
 
 def wordsDict(comments):
     supportSubs = ['test', 'videos','pcgaming']
     wordsMain = {}
     for comment in comments:
-        if(str(comment.subreddit) in supportSubs):
+        # if(str(comment.subreddit) in supportSubs):
             body = str(comment.body)
             wordList = body.split()
             for word in wordList:
@@ -63,7 +72,7 @@ def averageCommentLengthSupport(comments):
     commentLengths = []
     supportSubs = ['test', 'videos','pcgaming']
     for comment in comments:
-        if(str(comment.subreddit) in supportSubs):
+        # if(str(comment.subreddit) in supportSubs):
             body = str(comment.body)
             if(len(body) > 5): #dont count comments less than 5 characters
                 commentLengths.append(len(body))
@@ -76,16 +85,8 @@ def averageCommentLengthSupport(comments):
     output.append(median)
     return output
 
-def findMostPopularSubreddit(user):
-    posts = get_post_history(user)
-    comments = get_comment_history(user)
-    print(len(posts))
-    print(len(comments))
-    dictionary = {}
-
-    return 'fuck'
-
 def getSupportSubs():
+    
     return subsDict
 
 def get_subreddit_stats(subreddit):

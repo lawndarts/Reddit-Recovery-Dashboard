@@ -59,25 +59,28 @@ def show_support_subs():
 @app.route('/dashboard')
 @login_required
 def dashboard_page():
-    print(current_user)
     #why do I need to make the comments object multiple times? 
     # if type(comments) == 'NoneType':
     #     return render_template(url_for('error_page'))
+
+    # Henry's code
     comments =  reddit.user.me().comments.new(limit=50)
-    
     jsdict = stats.postingActivityDay(comments)
     comments =  reddit.user.me().comments.new(limit=500)
     submissions = reddit.user.me().submissions.new()
-
     topSubs = stats.activityCountSubreddit(comments, submissions)
     comments =  reddit.user.me().comments.new(limit=50)
     avgStats = stats.averageCommentLengthSupport(comments)
     comments =  reddit.user.me().comments.new(limit=50)
+    mainSupportSub = stats.getMainSupportSub(topSubs)
+    
+
+
     sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
     li = list(sortedSubDict.keys())
     upvoteCounts = list(sortedSubDict.values())      
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
-            li=li,upvoteCounts=upvoteCounts)
+            li=li,upvoteCounts=upvoteCounts,mainSupportSub=mainSupportSub)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):

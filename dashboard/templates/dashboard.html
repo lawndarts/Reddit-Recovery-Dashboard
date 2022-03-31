@@ -113,7 +113,7 @@ Dashboard
 <script type=text/javascript>
     var dict = JSON.parse('{{  jsdict  | tojson | safe  }}')
     setupTopSubs(dict)
-    var topSubs = JSON.parse('{{  topSubs  | tojson | safe  }}')
+    var topSubs = JSON.parse('{{  topSubs[0]  | tojson | safe  }}')
     setupSubPieChart(topSubs)
 </script>
 
