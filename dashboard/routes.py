@@ -49,7 +49,7 @@ def auth():
         login_user(user)
         flash(f"Account successfully created. You are logged in as {user.username}", category='success')
         print(f"Account successfully created. You are logged in as {user.username}")
-    return redirect(url_for('dashboard_page'))
+    return redirect(url_for('home_page'))
 
 @app.route('/support_subs')
 def show_support_subs():
@@ -59,23 +59,18 @@ def show_support_subs():
 @app.route('/dashboard')
 @login_required
 def dashboard_page():
-    #why do I need to make the comments object multiple times? 
     # if type(comments) == 'NoneType':
     #     return render_template(url_for('error_page'))
 
     # Henry's code
-    comments =  reddit.user.me().comments.new(limit=50)
+    comments = stats.get_comment_history(reddit.user.me())
     jsdict = stats.postingActivityDay(comments)
-    comments =  reddit.user.me().comments.new(limit=500)
     submissions = reddit.user.me().submissions.new()
     topSubs = stats.activityCountSubreddit(comments, submissions)
-    comments =  reddit.user.me().comments.new(limit=50)
     avgStats = stats.averageCommentLengthSupport(comments)
-    comments =  reddit.user.me().comments.new(limit=50)
-    mainSupportSub = stats.getMainSupportSub(topSubs)
+    mainSupportSub = stats.getMainSupportSub(topSubs[0])
+
     
-
-
     sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
     li = list(sortedSubDict.keys())
     upvoteCounts = list(sortedSubDict.values())      
