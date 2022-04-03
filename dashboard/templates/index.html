@@ -25,30 +25,28 @@ Home
             substance use/ recovery
 
         </p>
-    </div>
-        <div class="col-lg-6 ">
-            <div class="mt-5 w-50 border rounded shadow-sm mt-2 mx-auto p-3 text-center">
-                <p class="text-start">
-                By clicking "Link Account" you will authorize the support dashboard to pull your post, comment
-                and upvote history
-                </p>
-                <div class="mt-5">
-                    <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Link Account</a>
-                </form>
+        </div>
+            <div class="col-lg-6 ">
+                <div class="mt-5 w-50 border rounded shadow-sm mt-2 mx-auto p-3 text-center">
+                    <p class="text-start">
+                    By clicking "Link Account" you will authorize the support dashboard to pull your post, comment
+                    and upvote history
+                    </p>
+                    <div class="mt-5">
+                        <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Link Account</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-    
-    
-</div>
 <div class="nothing ms-5">
     Created by Lydon, Karen, Grace, Monty, Quinton and Henry. 
 </div>
-<!-- Script that handles the loading transition -->
+<!-- Script that handles the loading transition (using jQuery)-->
 <script type="text/javascript">// <![CDATA[
     function loading(){
-        $("#loading").show();
+        $("#loading").show(300);
         $(".content").hide();       
         $(".nothing").hide();       
     }
