@@ -7,8 +7,14 @@ Home
 {% endblock %}
 
 {% block body %}
+<div id="loading" class="container">
+    <div class="spinner mt-4">
+        <div></div>
+        <div></div>
+    </div>
+</div>
 
-<div class="container rounded shadow p-2  mb-5 bg-white rounded pb-5 mt-5">
+<div class="container rounded shadow p-2  mb-5 bg-white rounded pb-5 mt-5 content">
     <div class="row">
         <div class="col-lg-6 d-flex align-items-center">
             <p class="text-start ps-3">
@@ -19,26 +25,30 @@ Home
             substance use/ recovery
 
         </p>
-    </div>
-        <div class="col-lg-6 ">
-            <div class="mt-5 w-50 border rounded shadow-sm mt-2 mx-auto p-3 text-center">
-                <p class="text-start">
-                By clicking "Link Account" you will authorize the support dashboard to pull your post, comment
-                and upvote history
-                </p>
-                <div class="mt-5">
-                    <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Link Account</a>
-                    <!-- <form method="get" action="/login">
-                    <button class ="btn btn-outline-primary"type="submit">Authenticate</button> -->
-                </form>
+        </div>
+            <div class="col-lg-6 ">
+                <div class="mt-5 w-50 border rounded shadow-sm mt-2 mx-auto p-3 text-center">
+                    <p class="text-start">
+                    By clicking "Link Account" you will authorize the support dashboard to pull your post, comment
+                    and upvote history
+                    </p>
+                    <div class="mt-5">
+                        <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Link Account</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-    
-    
-</div>
-<div class="ms-5">
+<div class="nothing ms-5">
     Created by Lydon, Karen, Grace, Monty, Quinton and Henry. 
 </div>
+<!-- Script that handles the loading transition (using jQuery)-->
+<script type="text/javascript">// <![CDATA[
+    function loading(){
+        $("#loading").show(300);
+        $(".content").hide();       
+        $(".nothing").hide();       
+    }
+// ]]></script>
 {% endblock %}

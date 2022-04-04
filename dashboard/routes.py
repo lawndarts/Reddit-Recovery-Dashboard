@@ -10,7 +10,7 @@ from dashboard import stats
 
 from dashboard import db
 
-scope_input = '*'
+scope_input = 'history, identity'
 scopes = [scope.strip() for scope in scope_input.strip().split(",")]
 
 reddit = praw.Reddit(
@@ -28,7 +28,7 @@ def home_page():
 
 @app.route('/login')
 def login_page():
-    return redirect(reddit.auth.url(scopes, state, "permanent"))
+    return redirect(reddit.auth.url(scopes, state, "temporary"))
 
 @app.route('/auth')
 def auth():
@@ -49,7 +49,7 @@ def auth():
         login_user(user)
         flash(f"Account successfully created. You are logged in as {user.username}", category='success')
         print(f"Account successfully created. You are logged in as {user.username}")
-    return redirect(url_for('dashboard_page'))
+    return redirect(url_for('home_page'))
 
 @app.route('/support_subs')
 def show_support_subs():
@@ -59,28 +59,28 @@ def show_support_subs():
 @app.route('/dashboard')
 @login_required
 def dashboard_page():
-    #why do I need to make the comments object multiple times? 
     # if type(comments) == 'NoneType':
     #     return render_template(url_for('error_page'))
 
     # Henry's code
-    comments =  reddit.user.me().comments.new(limit=50)
+    submissions = stats.get_post_history(reddit.user.me())
+    comments = stats.get_comment_history(reddit.user.me())
+    upvotesBySubreddit = stats.getUpvotedSubreddits(reddit.user.me())
     jsdict = stats.postingActivityDay(comments)
-    comments =  reddit.user.me().comments.new(limit=500)
-    submissions = reddit.user.me().submissions.new()
+    # submissions = reddit.user.me().submissions.new()
     topSubs = stats.activityCountSubreddit(comments, submissions)
-    comments =  reddit.user.me().comments.new(limit=50)
     avgStats = stats.averageCommentLengthSupport(comments)
-    comments =  reddit.user.me().comments.new(limit=50)
-    mainSupportSub = stats.getMainSupportSub(topSubs)
+    maxComment = stats.getMax(topSubs[0])
+    maxSubmission = stats.getMax(topSubs[1])
+    maxUpvote = stats.getMax(upvotesBySubreddit)
+    maxStats = [maxComment, maxSubmission, maxUpvote]
     
-
-
+    
     sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
     li = list(sortedSubDict.keys())
     upvoteCounts = list(sortedSubDict.values())      
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
-            li=li,upvoteCounts=upvoteCounts,mainSupportSub=mainSupportSub)
+            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):

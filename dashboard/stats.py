@@ -16,7 +16,7 @@ def postingActivityDay(comments):
     DoTW = {'Sunday': 0, 'Monday': 0, 'Tuesday': 0, 'Wednesday': 0, 'Thursday': 0, 'Friday': 0, 'Saturday': 0,}
     for comment in comments:
         # if(str(comment.subreddit) in supportSubs):
-            unix_val = datetime.fromtimestamp(comment.created)
+            unix_val = datetime.fromtimestamp(comment['created'])
             day = unix_val.weekday()
             if(day == 0): day = 'Sunday'
             elif(day == 1): day = 'Monday'
@@ -35,23 +35,23 @@ def activityCountSubreddit(comments, submissions):
     subListComments = {}
     subListSubmissions = {}
     for comment in comments:
-        if(str(comment.subreddit) in subListComments):
-            subListComments[str(comment.subreddit)] += 1
+        if(str(comment['subreddit']) in subListComments):
+            subListComments[str(comment['subreddit'])] += 1
         else:
-            subListComments[str(comment.subreddit)] = 1
+            subListComments[str(comment['subreddit'])] = 1
     for submission in submissions:
-        if(str(submission.subreddit) in subListSubmissions):
-            subListSubmissions[str(submission.subreddit)] += 1
+        if(str(submission['subreddit']) in subListSubmissions):
+            subListSubmissions[str(submission['subreddit'])] += 1
         else:
-            subListSubmissions[str(submission.subreddit)] = 1
+            subListSubmissions[str(submission['subreddit'])] = 1
     aList = []
     aList.append(subListComments)
     aList.append(subListSubmissions)
     return aList
 
-def getMainSupportSub(topSubs):
+def getMax(theDict):
     #going to need a loop
-    max_key = max(topSubs[0], key=topSubs[0].get)
+    max_key = max(theDict, key=theDict.get)
     return max_key
 
 def wordsDict(comments):
@@ -59,7 +59,7 @@ def wordsDict(comments):
     wordsMain = {}
     for comment in comments:
         # if(str(comment.subreddit) in supportSubs):
-            body = str(comment.body)
+            body = str(comment['body'])
             wordList = body.split()
             for word in wordList:
                 if word not in wordsMain:
@@ -73,7 +73,7 @@ def averageCommentLengthSupport(comments):
     supportSubs = ['test', 'videos','pcgaming']
     for comment in comments:
         # if(str(comment.subreddit) in supportSubs):
-            body = str(comment.body)
+            body = str(comment['body'])
             if(len(body) > 5): #dont count comments less than 5 characters
                 commentLengths.append(len(body))
 
@@ -88,6 +88,29 @@ def averageCommentLengthSupport(comments):
 def getSupportSubs():
     
     return subsDict
+
+def commentsOnDaysEngaged(comments):
+    supportSubs = ['test', 'videos', 'pcgaming']
+    commentDates = {}
+    totalComments = 0
+    for comment in comments:
+        if(str(comment['subreddit']) in supportSubs):
+            unix_val = datetime.fromtimestamp(comment['created'])
+            strippedDate = unix_val.date()
+            if(strippedDate in commentDates):
+                commentDates[strippedDate] += 1
+                totalComments += 1
+            else:
+                commentDates[strippedDate] = 1
+                totalComments += 1
+    
+#FIND AVERAGE OF VALUES
+#DAYS WITH MOST ENGAGEMENT
+
+#should accept all three dictionaries with their respective frequencies organized by subreddit
+def getMaxValues(comments, submissions, upvotes):
+    
+    return 0
 
 def get_subreddit_stats(subreddit):
     '''
