@@ -170,6 +170,7 @@ options: {
 
 const upvoteSubreddits= new Chart(ctx,  config);
 
+//Makes barchart clickable
 function clickHandler(click){
   const points = upvoteSubreddits.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true);
   if (points.length) {
