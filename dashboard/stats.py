@@ -40,19 +40,18 @@ def activityCountSubreddit(comments, submissions):
         else:
             subListComments[str(comment['subreddit'])] = 1
     for submission in submissions:
-        if(str(submission.subreddit) in subListSubmissions):
-            subListSubmissions[str(submission.subreddit)] += 1
+        if(str(submission['subreddit']) in subListSubmissions):
+            subListSubmissions[str(submission['subreddit'])] += 1
         else:
-            subListSubmissions[str(submission.subreddit)] = 1
+            subListSubmissions[str(submission['subreddit'])] = 1
     aList = []
     aList.append(subListComments)
     aList.append(subListSubmissions)
     return aList
 
-def getMainSupportSub(comments):
+def getMax(theDict):
     #going to need a loop
-    max_key = max(comments, key=comments.get)
-    print(max_key)
+    max_key = max(theDict, key=theDict.get)
     return max_key
 
 def wordsDict(comments):
@@ -89,6 +88,29 @@ def averageCommentLengthSupport(comments):
 def getSupportSubs():
     
     return subsDict
+
+def commentsOnDaysEngaged(comments):
+    supportSubs = ['test', 'videos', 'pcgaming']
+    commentDates = {}
+    totalComments = 0
+    for comment in comments:
+        if(str(comment['subreddit']) in supportSubs):
+            unix_val = datetime.fromtimestamp(comment['created'])
+            strippedDate = unix_val.date()
+            if(strippedDate in commentDates):
+                commentDates[strippedDate] += 1
+                totalComments += 1
+            else:
+                commentDates[strippedDate] = 1
+                totalComments += 1
+    
+#FIND AVERAGE OF VALUES
+#DAYS WITH MOST ENGAGEMENT
+
+#should accept all three dictionaries with their respective frequencies organized by subreddit
+def getMaxValues(comments, submissions, upvotes):
+    
+    return 0
 
 def get_subreddit_stats(subreddit):
     '''

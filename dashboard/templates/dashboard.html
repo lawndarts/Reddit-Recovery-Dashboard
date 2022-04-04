@@ -10,7 +10,7 @@ Dashboard
 {% block body %}
 <body>
   
-  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4">
   
     <h1> User Dashboard - {{ current_user.username }} </h1>
     <hr>
@@ -38,8 +38,9 @@ Dashboard
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Top Subreddits based on Number of Upvoted Posts</h5>
-              <canvas id="upvoteSubreddits" width="300" height="300"></canvas>             
+              <h5 class="card-title">Basic info</h5>
+              <canvas id="upvoteSubreddits" width="300" height="300"></canvas> 
+              comment karma. post karma. account age. account suspended?
             </div>
           </div>
         </div>
