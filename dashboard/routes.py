@@ -10,7 +10,7 @@ from dashboard import stats
 
 from dashboard import db
 
-scope_input = 'history, identity'
+scope_input = 'history, identity, read'
 scopes = [scope.strip() for scope in scope_input.strip().split(",")]
 
 reddit = praw.Reddit(
