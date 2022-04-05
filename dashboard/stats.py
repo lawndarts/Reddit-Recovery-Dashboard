@@ -1,7 +1,7 @@
 
 from datetime import datetime
 import numpy as np
-import nltk
+# import nltk
 
 subsDict = {}
 with open('dashboard/subreddits.txt') as myfile:
@@ -108,13 +108,13 @@ def commentsOnDaysEngaged(comments):
 #FIND AVERAGE OF VALUES
 #DAYS WITH MOST ENGAGEMENT
 
-def sentimentAnalysis(upvotes):
-    high = []
-    low = []
-    nltk.download('vader_lexicon')
-    # Initialize the VADER sentiment analyzer
-    from nltk.sentiment.vader import SentimentIntensityAnalyzer
-    analyzer = SentimentIntensityAnalyzer()
+# def sentimentAnalysis(upvotes):
+#     high = []
+#     low = []
+#     nltk.download('vader_lexicon')
+#     # Initialize the VADER sentiment analyzer
+#     from nltk.sentiment.vader import SentimentIntensityAnalyzer
+#     analyzer = SentimentIntensityAnalyzer()
     # result = {}
     # commentList = []
     # comments =  reddit.user.me().comments.new(limit=50)
@@ -137,7 +137,7 @@ def sentimentAnalysis(upvotes):
     #         result['neu'] += 1
 
     # print(result)       
-    return 0
+    # return 0
 
 #should accept all three dictionaries with their respective frequencies organized by subreddit
 def getMaxValues(comments, submissions, upvotes):
