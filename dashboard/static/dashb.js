@@ -48,7 +48,7 @@ function setupSubPieChart(topSubs){
       })
       subsArray = []
       countsArray = []
-      count = len(subsArray)
+      count = entries.length
       if(count > 10){count = 10}
       for (let i = 0; i < count; i++) {
       subsArray.push(entries[i][0]);
