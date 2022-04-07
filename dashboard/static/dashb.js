@@ -15,8 +15,8 @@ function setupTopSubs(dict){
     labels: labels,
     datasets: [{
       label: 'What days do I post the most?',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(240, 93, 35, 1)',
+      borderColor: 'rgba(240, 93, 35, 1)',
       data: Object.values(dict),
     }]
   };
@@ -60,9 +60,10 @@ function setupSubPieChart(topSubs){
       label: 'My First Dataset',
       data: countsArray,
       backgroundColor: [
-        'rgb(197,184,252)',
-        'rgb(98,92,126)',
-        'rgb(243,240,254)'
+        'rgba(60, 145, 230, 1)',
+        'rgba(52, 46, 55, 1)',
+        'rgba(240, 93, 35, 1)',
+        'rgba(46, 71, 86, 1)'
       ],
       hoverOffset: 4
       }]
