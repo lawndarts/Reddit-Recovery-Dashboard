@@ -97,8 +97,39 @@ Dashboard
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Eight</h5>
-              <p class="card-text">Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+			<h2 class="card-title">User Statistics</h2>
+				<hr>
+				<h4>Days since user registration:</h4>
+				
+				<font size="14" face="Courier New" >
+				<table>
+				<tr>
+					<td>{{totalDays}}</td>
+				</tr>
+				</table>
+				</font>
+				
+				<hr>
+				<h4>Number of active days:</h4>
+				<font size="14" face="Courier New" >
+				<table>
+				<tr>
+					<td>{{days}}</td>
+				</tr>
+				</table>
+				</font>
+				
+				<hr>
+				<h4>Number of activities per active day:</h4>
+				<font size="14" face="Courier New" >
+				<table>
+				<tr>
+					<td>{{post}}</td>
+				</tr>
+				</table>
+				</font>
+				
+				<hr>
             </div>
           </div>
         </div>
