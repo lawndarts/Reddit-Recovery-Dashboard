@@ -21,10 +21,10 @@
             <div>
             <p class="title">
                 <!-- <img src="redditLogo.png" alt=""> -->
-                <span style="color: orange;"><strong>Reddit</strong></span>
                 <span class='titleSpan'>Recovery</span>
                 <span class='titleSpan'>Support</span>
                 <span class='titleSpan'>Dashboard</span>
+                <span style="color: orange;"><strong> for Reddit</strong></span>
             </p>
         </div>
     </a>
@@ -42,10 +42,12 @@
             <p><a class="nav-link ml-1" href="/about">About</a></p>
           </li>
           <!-- Runs the loading function-->
+          {% if current_user.is_authenticated %}
           <li class="nav-item ml-1">
             <p><a class="nav-link" href="{{ url_for('dashboard_page') }}" 
                    onclick="loading();">Dashboard</a></p>
           </li>
+          {% endif %}
           <li class="nav-item ml-1">
             <div class="vr ms-2 me-2"></div>
             
