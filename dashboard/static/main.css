@@ -68,3 +68,16 @@ div#loading {
     100%{transform: rotate(360deg); border-width: 1px;}
 }
 /* End of Loading Spinner Section */
+
+.pchart {
+    padding: 0;
+    margin: auto;
+    display: block;
+}
+
+.pchart-container {
+    position: relative; 
+    height:70%; 
+    width:70%; 
+}
+   

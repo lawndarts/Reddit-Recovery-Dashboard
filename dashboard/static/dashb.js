@@ -73,6 +73,7 @@ function setupSubPieChart(topSubs){
       type: 'pie',
       data: dataPie,
       options: {
+      responsive: true,
       plugins:{
         title: {
           display: false,
