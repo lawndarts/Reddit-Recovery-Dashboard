@@ -47,8 +47,8 @@ Dashboard
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Basic info</h5>
-              <canvas id="upvoteSubreddits" width=auto height="200"></canvas> 
+              <h5 class="card-title">Upvotes by Subreddit (Click for more information.)</h5>
+              <canvas id="upvoteSubreddits"></canvas> 
               <!--comment karma. post karma. account age. account suspended?-->
             </div>
           </div>
@@ -68,7 +68,7 @@ Dashboard
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Weekly Post Activity</h5>
-              <canvas id="myChart" width=auto height="200"></canvas>
+              <canvas id="myChart"></canvas>
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@ Dashboard
             <h5 class="card-title">Comment Stats</h5>
             <div class="card-body d-flex justify-content-between align-items-center flex-column">
               <p class="card-text">Average Comment Length: &emsp;<strong>{{ avgStats[0] }} characters (Median: {{ avgStats[1] }})</strong></p>
-              <canvas id="pieChart1" style="max-width:50%;"></canvas>
+              <canvas id="pieChart1"></canvas>
             </div>
           </div>
         </div>
@@ -107,8 +107,39 @@ Dashboard
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Eight</h5>
-              <p class="card-text">Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+			<h2 class="card-title">User Statistics</h2>
+				<hr>
+				<h4>Days since user registration:</h4>
+				
+				<font size="14" face="Courier New" >
+				<table>
+				<tr>
+					<td>{{totalDays}}</td>
+				</tr>
+				</table>
+				</font>
+				
+				<hr>
+				<h4>Number of active days:</h4>
+				<font size="14" face="Courier New" >
+				<table>
+				<tr>
+					<td>{{days}}</td>
+				</tr>
+				</table>
+				</font>
+				
+				<hr>
+				<h4>Number of activities per active day:</h4>
+				<font size="14" face="Courier New" >
+				<table>
+				<tr>
+					<td>{{post}}</td>
+				</tr>
+				</table>
+				</font>
+				
+				<hr>
             </div>
           </div>
         </div>

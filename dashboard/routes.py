@@ -7,7 +7,7 @@ import praw, random
 from dashboard.models import User
 # Import dashboard python functions
 from dashboard import stats
-
+import numpy as np
 from dashboard import db
 
 scope_input = 'history, identity, read'
@@ -78,9 +78,67 @@ def dashboard_page():
     
     sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
     li = list(sortedSubDict.keys())
-    upvoteCounts = list(sortedSubDict.values())      
+    upvoteCounts = list(sortedSubDict.values())     
+
+#User activity code
+    timevec = []
+    n = 0
+    newday = 0
+
+    #print('Posted Comments:')
+    for comment in reddit.user.me().comments.new(limit=None): 
+        time = comment.created_utc 
+        day = int(time/86400)
+        c = timevec.count(day)
+        if c == 0:
+            timevec.append(day)
+            newday += 1
+        n+= 1
+        
+    #print('Posted Subreddits:')  
+    for subm in reddit.user.me().submissions.new(limit=None):
+        time = subm.created_utc
+        day = int(time/86400)
+        c = timevec.count(day)
+        if c == 0:
+            timevec.append(day)
+            newday += 1
+        n+= 1 
+
+    #print('Upvoted Subreddits:')   
+    for subupvote in reddit.user.me().upvoted(limit=None):
+        time = subupvote.created_utc
+        day = int(time/86400)
+        c = timevec.count(day)
+        if c == 0:
+            timevec.append(day)
+            newday += 1
+        n += 1
+
+
+    #print('Downvoted Subreddits:')
+    for subdownvote in reddit.user.me().downvoted(limit=None):
+        time = subdownvote.created_utc
+        day = int(time/86400)
+        c = timevec.count(day)
+        if c == 0:
+            timevec.append(day)
+            newday += 1
+        n+= 1
+
+    minday = min(timevec)
+    maxday = max(timevec)
+    total = maxday - minday
+
+    numweeks = total/7
+    daysact = newday/numweeks
+
+    postact = n/newday
+    
+#end user activity code
+    
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
-            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats)
+            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, totalDays = total, days = daysact, post = postact)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):
