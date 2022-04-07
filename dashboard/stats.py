@@ -12,6 +12,16 @@ supportSubs = list(subsDict.keys())
 for i in range(len(supportSubs)):
     supportSubs[i] = supportSubs[i][2:]
 
+def getAccountAge(user):
+    date = datetime.fromtimestamp(user.created_utc)
+    now = datetime.now()
+    difference = now - date
+    print(difference.days)
+    years = difference.days / 365
+    # days = difference % 365
+
+    return difference.days
+
 def postingActivityDay(comments):
     supportSubs = ['test', 'videos','pcgaming']
     DoTW = {'Sunday': 0, 'Monday': 0, 'Tuesday': 0, 'Wednesday': 0, 'Thursday': 0, 'Friday': 0, 'Saturday': 0,}

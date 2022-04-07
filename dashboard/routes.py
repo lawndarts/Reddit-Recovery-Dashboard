@@ -74,7 +74,7 @@ def dashboard_page():
     maxSubmission = stats.getMax(topSubs[1])
     maxUpvote = stats.getMax(upvotesBySubreddit)
     maxStats = [maxComment, maxSubmission, maxUpvote]
-    
+    stats.getAccountAge(reddit.user.me())
     
     sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
     li = list(sortedSubDict.keys())

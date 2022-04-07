@@ -60,9 +60,9 @@ function setupSubPieChart(topSubs){
       label: 'My First Dataset',
       data: countsArray,
       backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
+        'rgb(197,184,252)',
+        'rgb(98,92,126)',
+        'rgb(243,240,254)'
       ],
       hoverOffset: 4
       }]
@@ -74,7 +74,7 @@ function setupSubPieChart(topSubs){
       options: {
       plugins:{
         title: {
-          display: true,
+          display: false,
           text: 'Hover to see Subreddits'
         },
         legend:{
@@ -89,3 +89,37 @@ function setupSubPieChart(topSubs){
     configPie
     );
 }
+// this is some jquery. It only loads after the elements on the page loads I think. 
+$(document).ready(function()
+{
+	$("#wordCloud").jQWCloud({
+		words: data,
+		//cloud_color: 'yellow',		
+		minFont: 10,
+		maxFont: 50,
+		//fontOffset: 5,
+		//cloud_font_family: 'Owned',
+		verticalEnabled: true,
+		padding_left: 1,
+		//showSpaceDIV: true,
+		//spaceDIVColor: 'white',
+		word_common_classes: 'WordClass',		
+		word_mouseEnter :function(){
+			$(this).css("text-decoration","underline");
+		},
+		word_mouseOut :function(){
+			$(this).css("text-decoration","none");	
+		},
+		word_click: function(){ 			
+			alert("You have selected:" +$(this).text());
+		},		              
+		beforeCloudRender: function(){
+		       date1=new Date();
+	 	},
+	 	afterCloudRender: function(){
+				var date2=new Date();
+				console.log("Cloud Completed in "+(date2.getTime()-date1.getTime()) +" milliseconds");
+			}
+	});
+	
+});
