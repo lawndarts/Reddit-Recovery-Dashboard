@@ -26,6 +26,9 @@ Home
 
         </p>
         </div>
+        {% if current_user.is_authenticated %}
+        <!-- put whatever here -->
+        {% else %}
             <div class="col-lg-6 ">
                 <div class="mt-5 w-50 border rounded shadow-sm mt-2 mx-auto p-3 text-center">
                     <p class="text-start">
@@ -38,6 +41,7 @@ Home
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 <div class="nothing ms-5">

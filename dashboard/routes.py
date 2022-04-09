@@ -62,83 +62,90 @@ def dashboard_page():
     # if type(comments) == 'NoneType':
     #     return render_template(url_for('error_page'))
 
-    # Henry's code
+    
+    #Pull data from these objects
     submissions = stats.get_post_history(reddit.user.me())
     comments = stats.get_comment_history(reddit.user.me())
     upvotesBySubreddit = stats.getUpvotedSubreddits(reddit.user.me())
+
+    # Henry's code
+
+    #Data for the graph that shows comments on given days of the week (useless)
     jsdict = stats.postingActivityDay(comments)
-    # submissions = reddit.user.me().submissions.new()
+    #this returns two dictionaries with frequencies organized by subreddit(comments and submissions)
     topSubs = stats.activityCountSubreddit(comments, submissions)
+    #Returns the average number of characters per comment
     avgStats = stats.averageCommentLengthSupport(comments)
     maxComment = stats.getMax(topSubs[0])
     maxSubmission = stats.getMax(topSubs[1])
     maxUpvote = stats.getMax(upvotesBySubreddit)
     maxStats = [maxComment, maxSubmission, maxUpvote]
     stats.getAccountAge(reddit.user.me())
+    avg = stats.commentsOnDaysEngaged(comments)
     
     sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
     li = list(sortedSubDict.keys())
     upvoteCounts = list(sortedSubDict.values())     
 
 #User activity code
-    timevec = []
-    n = 0
-    newday = 0
+    # timevec = []
+    # n = 0
+    # newday = 0
 
-    #print('Posted Comments:')
-    for comment in reddit.user.me().comments.new(limit=None): 
-        time = comment.created_utc 
-        day = int(time/86400)
-        c = timevec.count(day)
-        if c == 0:
-            timevec.append(day)
-            newday += 1
-        n+= 1
+    # #print('Posted Comments:')
+    # for comment in reddit.user.me().comments.new(limit=None): 
+    #     time = comment.created_utc 
+    #     day = int(time/86400)
+    #     c = timevec.count(day)
+    #     if c == 0:
+    #         timevec.append(day)
+    #         newday += 1
+    #     n+= 1
         
-    #print('Posted Subreddits:')  
-    for subm in reddit.user.me().submissions.new(limit=None):
-        time = subm.created_utc
-        day = int(time/86400)
-        c = timevec.count(day)
-        if c == 0:
-            timevec.append(day)
-            newday += 1
-        n+= 1 
+    # #print('Posted Subreddits:')  
+    # for subm in reddit.user.me().submissions.new(limit=None):
+    #     time = subm.created_utc
+    #     day = int(time/86400)
+    #     c = timevec.count(day)
+    #     if c == 0:
+    #         timevec.append(day)
+    #         newday += 1
+    #     n+= 1 
 
     #print('Upvoted Subreddits:')   
-    for subupvote in reddit.user.me().upvoted(limit=None):
-        time = subupvote.created_utc
-        day = int(time/86400)
-        c = timevec.count(day)
-        if c == 0:
-            timevec.append(day)
-            newday += 1
-        n += 1
+    # for subupvote in reddit.user.me().upvoted(limit=None):
+    #     time = subupvote.created_utc
+    #     day = int(time/86400)
+    #     c = timevec.count(day)
+    #     if c == 0:
+    #         timevec.append(day)
+    #         newday += 1
+    #     n += 1
 
 
-    #print('Downvoted Subreddits:')
-    for subdownvote in reddit.user.me().downvoted(limit=None):
-        time = subdownvote.created_utc
-        day = int(time/86400)
-        c = timevec.count(day)
-        if c == 0:
-            timevec.append(day)
-            newday += 1
-        n+= 1
+    # #print('Downvoted Subreddits:')
+    # for subdownvote in reddit.user.me().downvoted(limit=None):
+    #     time = subdownvote.created_utc
+    #     day = int(time/86400)
+    #     c = timevec.count(day)
+    #     if c == 0:
+    #         timevec.append(day)
+    #         newday += 1
+    #     n+= 1
 
-    minday = min(timevec)
-    maxday = max(timevec)
-    total = maxday - minday
+    # minday = min(timevec)
+    # maxday = max(timevec)
+    # total = maxday - minday
 
-    numweeks = total/7
-    daysact = newday/numweeks
+    # numweeks = total/7
+    # daysact = newday/numweeks
 
-    postact = n/newday
+    # postact = n/newday
     
 #end user activity code
     
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
-            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, totalDays = total, days = daysact, post = postact)
+            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats) #totalDays = total, days = daysact, post = postact)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):

@@ -9,19 +9,7 @@ Dashboard
 {% endblock %}
 {% block body %}
 <body>
-  <!-- <div class="d-flex pb-0 mb-0 justify-content-center">
-    <h5 class="mb-0"> comment statistics</h5>
-  </div>
-    <div class="card px-4 m-4 mb-0" style="height: 20em;">
-      <div class="card-body">
-        
-
-      </div>
-    </div> -->
-
   <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4 mt-0 pt-1">
-  
-    
     <hr>
   
     <div class="row">
@@ -49,7 +37,7 @@ Dashboard
             <div class="card-body">
               <h5 class="card-title">Upvotes by Subreddit (Click for more information.)</h5>
               <canvas id="upvoteSubreddits"></canvas> 
-              <!--comment karma. post karma. account age. account suspended?-->
+
             </div>
           </div>
         </div>
@@ -78,10 +66,10 @@ Dashboard
           <div class="card">
             <h5 class="card-title">Comment Stats</h5>
             <div class="card-body">
-              <p class="card-text">Average Comment Length: &emsp;<strong>{{ avgStats[0] }} characters (Median: {{ avgStats[1] }})</strong></p>
-              <div class="pchart-container">
+              
+              <!-- <div class="pchart-container">
                 <canvas class="pchart" id="pieChart1"></canvas>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -146,6 +134,29 @@ Dashboard
         </div>
       </div>      
   </main>
+  <!-- comment stats section -->
+  <div class="d-flex pb-0 mb-0 justify-content-center">
+    <h5 class="mb-0"> comment statistics</h5>
+  </div>
+    <div class="card px-4 m-4 mb-0" style="height: 20em;">
+      <div class="card-body">
+        <div class="row d-flex justify-content-between">
+          <!-- first column -->
+          <div class="d-flex flex-column" style="width: 70%;">
+            <p class="card-text" >Average Comment Length: &emsp;
+              <strong>{{ avgStats[0] }} characters (Median: {{ avgStats[1] }})</strong></p>
+              
+          </div>
+          <!-- second column -->
+          <div class="d-flex flex-column" style="width: 30%;">
+            <div class="pchart-container" style="max-width: 175px; height: 175px;">
+              <canvas class="pchart" id="pieChart1"></canvas>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 {% endblock %}
 {% block scripts %}

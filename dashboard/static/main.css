@@ -74,14 +74,16 @@ div#loading {
  
 /* Pie charts */
 .pchart {
-    padding: 0;
+    /* padding: 0;
     margin: auto;
-    display: block;
+    display: block; */
+    height: 100px;
 }
 
 .pchart-container {
-    position: relative; 
-    height:70%; 
-    width:70%; 
+    /* position: relative;  */
+    /* height:70%; 
+    width:70%;  */
+    height: 100px;
 }
    

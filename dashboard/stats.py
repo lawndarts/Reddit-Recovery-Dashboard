@@ -16,7 +16,6 @@ def getAccountAge(user):
     date = datetime.fromtimestamp(user.created_utc)
     now = datetime.now()
     difference = now - date
-    print(difference.days)
     years = difference.days / 365
     # days = difference % 365
 
@@ -61,7 +60,6 @@ def activityCountSubreddit(comments, submissions):
     return aList
 
 def getMax(theDict):
-    #going to need a loop
     max_key = max(theDict, key=theDict.get)
     return max_key
 
@@ -101,11 +99,13 @@ def getSupportSubs():
     return subsDict
 
 def commentsOnDaysEngaged(comments):
+    stats = []
     supportSubs = ['test', 'videos', 'pcgaming']
     commentDates = {}
     totalComments = 0
     for comment in comments:
-        if(str(comment['subreddit']) in supportSubs):
+        # if(str(comment['subreddit']) in supportSubs):
+            
             unix_val = datetime.fromtimestamp(comment['created'])
             strippedDate = unix_val.date()
             if(strippedDate in commentDates):
@@ -114,9 +114,9 @@ def commentsOnDaysEngaged(comments):
             else:
                 commentDates[strippedDate] = 1
                 totalComments += 1
-    
-#FIND AVERAGE OF VALUES
-#DAYS WITH MOST ENGAGEMENT
+    res = sum(commentDates.values()) / totalComments
+    # stats.append(res)
+    return res
 
 # def sentimentAnalysis(upvotes):
 #     high = []
