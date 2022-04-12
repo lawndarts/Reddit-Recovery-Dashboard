@@ -55,7 +55,7 @@ Dashboard
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Comment frequency (Past 90 days)</h5>
-              <canvas id="myChart"></canvas>
+              <!-- <canvas id="myChart"></canvas> -->
             </div>
           </div>
         </div>
@@ -64,10 +64,10 @@ Dashboard
       <div class="row">
         <div class="col-sm-6">
           <div class="card">
-            <h5 class="card-title">Word Cloud</h5>
+            <h5 class="card-title d-flex justify-content-center">Word Cloud</h5>
             <div class="card-body">
               
-              <div class="row-md pt-2" style="max-width: 100%;">
+              <div class="row-md pt-5" style="max-width: 100%;">
                 <div id="wordCloud"></div>
               </div>
               
@@ -139,21 +139,23 @@ Dashboard
   <div class="d-flex pb-0 mb-0 justify-content-center">
     <h5 class="mb-0"> comment statistics</h5>
   </div>
-    <div class="card px-4 m-4 mb-0" style="height: 20em;">
+    <div class="card px-4 m-4 mb-0" style="height: 25em;">
       <div class="card-body">
         <div class="row d-flex justify-content-between">
           <!-- first column -->
           <div class="d-flex flex-column" style="width: 70%;">
             <p class="card-text" >Average Comment Length: &emsp;
               <strong>{{ avgStats[0] }} characters (Median: {{ avgStats[1] }})</strong></p>
-              
+              <div class="bar-div" style="max-width: 75%;">
+                <canvas id="myChart"></canvas>
+              </div>
           </div>
           <!-- second column -->
           <div class="d-flex flex-column" style="width: 30%;">
             <div class="pchart-container" style="max-width: 175px; height: 175px;">
               <canvas class="pchart" id="pieChart1"></canvas>
             </div>
-
+            
           </div>
         </div>
       </div>

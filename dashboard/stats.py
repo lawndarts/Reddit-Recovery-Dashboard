@@ -147,35 +147,35 @@ def commentsOnDaysEngaged(comments):
     # stats.append(res)
     return res
 
-# def sentimentAnalysis(upvotes):
-#     high = []
-#     low = []
-#     nltk.download('vader_lexicon')
-#     # Initialize the VADER sentiment analyzer
-#     from nltk.sentiment.vader import SentimentIntensityAnalyzer
-#     analyzer = SentimentIntensityAnalyzer()
-#     result = {}
-#     commentList = []
-    #generate list of comments
-    # for comment in upvotes:
-    #     if(str(comment.subreddit) in subreddit):
-    #         if(len(comment.body)) > 10:
-    #             commentList.append(str(comment.body))
+def sentimentAnalysis(upvotes, supportSub):
+    high = []
+    low = []
+    nltk.download('vader_lexicon')
+    # Initialize the VADER sentiment analyzer
+    from nltk.sentiment.vader import SentimentIntensityAnalyzer
+    analyzer = SentimentIntensityAnalyzer()
+    result = {}
+    commentList = []
+    # generate list of comments
+    for comment in upvotes:
+        if(str(comment.subreddit) in supportSub):
+            if(len(comment.body)) > 10:
+                commentList.append(str(comment.body))
 
     # get sentiment analysis per subreddit
 
-    # result = {'pos': 0, 'neg': 0, 'neu': 0}
-    # for comment in commentList:
-    #     score = analyzer.polarity_scores(comment)
-    #     if score['compound'] > 0.05:
-    #         result['pos'] += 1
-    #     elif score['compound'] < -0.05:
-    #         result['neg'] += 1
-    #     else:
-    #         result['neu'] += 1
+    result = {'pos': 0, 'neg': 0, 'neu': 0}
+    for comment in commentList:
+        score = analyzer.polarity_scores(comment)
+        if score['compound'] > 0.05:
+            result['pos'] += 1
+        elif score['compound'] < -0.05:
+            result['neg'] += 1
+        else:
+            result['neu'] += 1
 
-    # print(result)       
-    # return 0
+    print(result)       
+    return 0
 
 #should accept all three dictionaries with their respective frequencies organized by subreddit
 def getMaxValues(comments, submissions, upvotes):
