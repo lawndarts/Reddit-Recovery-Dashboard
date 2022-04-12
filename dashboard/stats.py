@@ -310,39 +310,3 @@ def getUpvotedSubreddits(user):
     #sort it from highest count to lowest
     sortedSubDict = dict(sorted(subredditDict.items(), key=lambda x: x[1], reverse=True))
     return sortedSubDict
-def getPostSubreddits(user):
-    global subredditPostDictionary 
-    #get posts upvoted by user
-    #user = reddit.redditor('kah277')
-    posts = user.submissions.new(limit=None)
-
-    #put subreddit name and upvote totals in dictionary
-    subredditPostDict = {}
-
-    for p in posts:
-        if p.subreddit.display_name not in subredditPostDict:
-            subredditPostDict[p.subreddit.display_name]=1
-        else:
-            subredditPostDict[p.subreddit.display_name]+=1
-
-    #sort it from highest count to lowest
-    subredditPostDictionary  = dict(sorted(subredditPostDict.items(), key=lambda x: x[1], reverse=True))
-    return subredditPostDictionary 
-def getCommentSubreddits(user):
-    global subredditCommentDictionary
-    #get posts upvoted by user
-    #user = reddit.redditor('kah277')
-    comments = user.comments.new(limit=None)
-
-    #put subreddit name and upvote totals in dictionary
-    subredditCommentDict = {}
-
-    for c in comments:
-        if c.subreddit.display_name not in subredditCommentDict:
-            subredditCommentDict[c.subreddit.display_name]=1
-        else:
-            subredditCommentDict[c.subreddit.display_name]+=1
-
-    #sort it from highest count to lowest
-    subredditCommentDictionary = dict(sorted(subredditCommentDict.items(), key=lambda x: x[1], reverse=True))
-    return subredditCommentDictionary
