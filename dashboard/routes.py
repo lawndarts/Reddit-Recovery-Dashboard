@@ -9,6 +9,7 @@ from dashboard.models import User
 from dashboard import stats
 import numpy as np
 from dashboard import db
+import time
 
 scope_input = 'history, identity, read'
 scopes = [scope.strip() for scope in scope_input.strip().split(",")]
@@ -62,12 +63,14 @@ def dashboard_page():
     # if type(comments) == 'NoneType':
     #     return render_template(url_for('error_page'))
 
-    
+    start = time.time()
     #Pull data from these objects
     submissions = stats.get_post_history(reddit.user.me())
     comments = stats.get_comment_history(reddit.user.me())
+    upvotedComments = stats.get_upvote_history(reddit.user.me())
     upvotesBySubreddit = stats.getUpvotedSubreddits(reddit.user.me())
-
+    end = time.time()
+    print(f'after object creation function {end - start}')
     # Henry's code
 
     #Data for the graph that shows comments on given days of the week (useless)
@@ -76,13 +79,25 @@ def dashboard_page():
     topSubs = stats.activityCountSubreddit(comments, submissions)
     #Returns the average number of characters per comment
     avgStats = stats.averageCommentLengthSupport(comments)
+    #Gets the subreddit the user commented on the most
     maxComment = stats.getMax(topSubs[0])
+    #Gets the subreddit the user posted the most
     maxSubmission = stats.getMax(topSubs[1])
+    #Gets the subreddit the user upvoted the most
     maxUpvote = stats.getMax(upvotesBySubreddit)
     maxStats = [maxComment, maxSubmission, maxUpvote]
     stats.getAccountAge(reddit.user.me())
+    #returns average number of comments made on days commented at least once
+    #add average comments per day using age of acc / # comments and add the data below after
     avg = stats.commentsOnDaysEngaged(comments)
+    #gets data for wordcloud
+    end = time.time()
+    print(f'before latest function {end - start}')
+    cloudData = stats.wordsDict(comments)
+    end = time.time()
+    print(f'after latest function {end - start}')
     
+
     sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
     li = list(sortedSubDict.keys())
     upvoteCounts = list(sortedSubDict.values())     
@@ -145,7 +160,8 @@ def dashboard_page():
 #end user activity code
     
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
-            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats) #totalDays = total, days = daysact, post = postact)
+            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, cloudData=cloudData) 
+    #totalDays = total, days = daysact, post = postact)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):

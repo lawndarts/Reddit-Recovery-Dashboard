@@ -28,7 +28,7 @@ Dashboard
                   <li><a href="/subreddit/arbedeenwa">arbedeenwa</a></li>
                   <li><a href="/subreddit/FriendsOver40">FriendsOver40</a></li>
                   <li><a href="/subreddit/farcry">farcry</a></li>
-              </ol>              
+              </ol>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@ Dashboard
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Weekly Post Activity</h5>
+              <h5 class="card-title">Comment frequency (Past 90 days)</h5>
               <canvas id="myChart"></canvas>
             </div>
           </div>
@@ -64,12 +64,13 @@ Dashboard
       <div class="row">
         <div class="col-sm-6">
           <div class="card">
-            <h5 class="card-title">Comment Stats</h5>
+            <h5 class="card-title">Word Cloud</h5>
             <div class="card-body">
               
-              <!-- <div class="pchart-container">
-                <canvas class="pchart" id="pieChart1"></canvas>
-              </div> -->
+              <div class="row-md pt-2" style="max-width: 100%;">
+                <div id="wordCloud"></div>
+              </div>
+              
             </div>
           </div>
         </div>
@@ -161,14 +162,30 @@ Dashboard
 {% endblock %}
 {% block scripts %}
 <!-- Import javascript functions (should be able to add to existing route)-->
+<script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script type="text/javascript"
+         src="{{ url_for('static', filename='jQWCloudv3.4.1.js') }}"></script>
 <script type="text/javascript"
          src="{{ url_for('static', filename='dashb.js') }}"></script>
+
 
 <script type=text/javascript>
     var dict = JSON.parse('{{  jsdict  | tojson | safe  }}')
     setupTopSubs(dict)
     var topSubs = JSON.parse('{{  topSubs[0]  | tojson | safe  }}')
     setupSubPieChart(topSubs)
+    //clearly you dont need to use json. Here I brought the python dict into JS and iterated through its
+    //keys and values
+    var cloudData = {{  cloudData  | safe  }}
+    data = []
+    for (const [key, value] of Object.entries(cloudData)) {
+      // console.log(key, value);
+      data.push({word: key, weight: value})
+    }
+    makeCloud(data)
 </script>
 
 <script>

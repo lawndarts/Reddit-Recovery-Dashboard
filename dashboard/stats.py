@@ -1,6 +1,10 @@
 
-from datetime import datetime
+from datetime import datetime, timedelta
 import numpy as np
+import json 
+import time
+#in case we want to catch this error (happened to me once for no reason)
+from prawcore.exceptions import Forbidden
 # import nltk
 
 subsDict = {}
@@ -26,6 +30,7 @@ def postingActivityDay(comments):
     DoTW = {'Sunday': 0, 'Monday': 0, 'Tuesday': 0, 'Wednesday': 0, 'Thursday': 0, 'Friday': 0, 'Saturday': 0,}
     for comment in comments:
         # if(str(comment.subreddit) in supportSubs):
+        if datetime.fromtimestamp(comment['created']) > datetime.today() - timedelta(days=90):
             unix_val = datetime.fromtimestamp(comment['created'])
             day = unix_val.weekday()
             if(day == 0): day = 'Sunday'
@@ -45,6 +50,7 @@ def activityCountSubreddit(comments, submissions):
     subListComments = {}
     subListSubmissions = {}
     for comment in comments:
+        # if datetime.fromtimestamp(comment['created']) > datetime.today() - timedelta(days=90):
         if(str(comment['subreddit']) in subListComments):
             subListComments[str(comment['subreddit'])] += 1
         else:
@@ -64,6 +70,7 @@ def getMax(theDict):
     return max_key
 
 def wordsDict(comments):
+    start = time.time()
     supportSubs = ['test', 'videos','pcgaming']
     wordsMain = {}
     for comment in comments:
@@ -71,11 +78,33 @@ def wordsDict(comments):
             body = str(comment['body'])
             wordList = body.split()
             for word in wordList:
+                word = word.lower()
+                word = word.strip('.')
+                for char in word:
+                    if char in " ?.!/;:,":
+                        word.replace(char,'')
+                
                 if word not in wordsMain:
                     wordsMain[word] = 1
                 else:
                     wordsMain[word] += 1
-    return wordsMain
+    deleteList = []
+    with open('dashboard/stopwords.txt') as file:
+        contents = file.read()
+        for key in wordsMain:
+            if key in contents:
+                deleteList.append(key)
+        for word in deleteList:
+            del wordsMain[word]
+    # print(wordsMain)
+    {k: v for k, v in wordsMain.items() if v}
+    wordsMain = dict(sorted(wordsMain.items(), key=lambda item: item[1]))
+    wordsMain = dict(list(wordsMain.items())[-40:])
+    json_object = json.dumps(wordsMain, indent = 4) 
+    # print(json_object)
+    end = time.time()
+    # print(f'wordsDict() runtime: {end - start}')
+    return json_object
 
 def averageCommentLengthSupport(comments):
     commentLengths = []
@@ -125,16 +154,15 @@ def commentsOnDaysEngaged(comments):
 #     # Initialize the VADER sentiment analyzer
 #     from nltk.sentiment.vader import SentimentIntensityAnalyzer
 #     analyzer = SentimentIntensityAnalyzer()
-    # result = {}
-    # commentList = []
-    # comments =  reddit.user.me().comments.new(limit=50)
-    # #generate list of comments
-    # for comment in comments:
+#     result = {}
+#     commentList = []
+    #generate list of comments
+    # for comment in upvotes:
     #     if(str(comment.subreddit) in subreddit):
     #         if(len(comment.body)) > 10:
     #             commentList.append(str(comment.body))
 
-    #get sentiment analysis per subreddit
+    # get sentiment analysis per subreddit
 
     # result = {'pos': 0, 'neg': 0, 'neu': 0}
     # for comment in commentList:
@@ -249,6 +277,19 @@ def get_comments_in_subreddit(comment_history, subreddit):
         if comment["subreddit"] == subreddit.display_name:
             comments_in_subreddit.append(comment)
     return comments_in_subreddit
+
+def get_upvote_history(user):
+    upvote_history = []
+    for comment in user.upvoted():
+        temp = comment.subreddit
+        x = {
+            'id': comment.id,
+            'created': comment.created_utc,
+            'subreddit': temp.display_name,
+            'body': comment.title
+        }
+        upvote_history.append(x)
+    return upvote_history
 
 def getUpvotedSubreddits(user):
     global sortedSubDict
