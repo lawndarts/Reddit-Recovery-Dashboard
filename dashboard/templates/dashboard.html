@@ -133,7 +133,28 @@ Dashboard
             </div>
           </div>
         </div>
-      </div>      
+      </div>  
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <h5 class="card-title">Top 10 Subreddits By Post</h5>
+            <canvas id="postSubreddits"></canvas> 
+              
+              <!-- <div class="pchart-container">
+                <canvas class="pchart" id="pieChart1"></canvas>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Top 10 Subreddits By Comments</h5>
+              <canvas id="commentSubreddits"></canvas> 
+            </div>
+          </div>
+        </div>
+      </div>    
   </main>
   <!-- comment stats section -->
   <div class="d-flex pb-0 mb-0 justify-content-center">
@@ -249,5 +270,127 @@ function clickHandler(click){
 canvas.onclick = clickHandler;
 
 </script>
+<script>
+  const post_canvas = document.getElementById('postSubreddits');
+  const post_ctx = post_canvas.getContext('2d');
+  const post_config = {
+  type: 'bar',
+  data: {
+      labels: [
+          {% for item in range(10) %}
+              "{{ postKeys[item] }}",
+          {% endfor %}
+      ],
+      datasets: [{
+          label: '# of posts',
+          data: [
+              {% for item in range(10) %}
+                  { post_subnames: '{{ postKeys[item] }}', post_counts: '{{ postValues[item] }}', links: "/subreddit/{{ postKeys[item] }}"}, // format as 1 dictionary
+              {% endfor %}
+          ],
+          backgroundColor: [
+              'rgba(60, 145, 230, 1)',
+              'rgba(52, 46, 55, 1)',   
+              'rgba(240, 93, 35, 1)',
+              'rgba(46, 71, 86, 1)'
+          ],
+          borderColor: [
+              'rgba(60, 145, 230, 1)',
+              'rgba(52, 46, 55, 1)',
+              'rgba(240, 93, 35, 1)',
+              'rgba(46, 71, 86, 1)'
+          ],
+          borderWidth: 1
+      }]
+  },
+  options: {
+      parsing: {
+        xAxisKey: 'post_subnames',
+        yAxisKey: 'post_counts'
+      },
+      scales: {
+          y: {
+              beginAtZero: true
+          }
+      }
+  }
+  };
+  
+  const postSubreddits= new Chart(post_ctx,  post_config);
+  
+  //Makes barchart clickable
+  function clickPostHandler(click){
+    const points = postSubreddits.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true);
+    if (points.length) {
+      const firstPoint = points[0];
+      const value = postSubreddits.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
+      console.log(value.links)
+      window.open(value.links);
+    }
+  }
+  post_canvas.onclick = clickPostHandler;
+</script>
+
+<script>
+  const comment_canvas = document.getElementById('commentSubreddits');
+  const comment_ctx = comment_canvas.getContext('2d');
+  const comment_config = {
+  type: 'bar',
+  data: {
+      labels: [
+          {% for item in range(10) %}
+              "{{ commentKeys[item] }}",
+          {% endfor %}
+      ],
+      datasets: [{
+          label: '# of comments',
+          data: [
+              {% for item in range(10) %}
+                  { comment_subnames: '{{ commentKeys[item] }}', comment_counts: '{{ commentValues[item] }}', links: "/subreddit/{{ commentKeys[item] }}"}, // format as 1 dictionary
+              {% endfor %}
+          ],
+          backgroundColor: [
+              'rgba(60, 145, 230, 1)',
+              'rgba(52, 46, 55, 1)',   
+              'rgba(240, 93, 35, 1)',
+              'rgba(46, 71, 86, 1)'
+          ],
+          borderColor: [
+              'rgba(60, 145, 230, 1)',
+              'rgba(52, 46, 55, 1)',
+              'rgba(240, 93, 35, 1)',
+              'rgba(46, 71, 86, 1)'
+          ],
+          borderWidth: 1
+      }]
+  },
+  options: {
+      parsing: {
+        xAxisKey: 'comment_subnames',
+        yAxisKey: 'comment_counts'
+      },
+      scales: {
+          y: {
+              beginAtZero: true
+          }
+      }
+  }
+  };
+  
+  const commentSubreddits= new Chart(comment_ctx,  comment_config);
+  
+  //Makes barchart clickable
+  function clickCommentHandler(click){
+    const points = commentSubreddits.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true);
+    if (points.length) {
+      const firstPoint = points[0];
+      const value = commentSubreddits.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
+      console.log(value.links)
+      window.open(value.links);
+    }
+  }
+  comment_canvas.onclick = clickCommentHandler;
+</script>
+
 
 {% endblock %}
