@@ -107,6 +107,14 @@ def dashboard_page():
     li = list(sortedSubDict.keys())
     upvoteCounts = list(sortedSubDict.values())     
 
+    subredditPostDictionary = stats.getPostSubreddits(reddit.user.me())
+    postKeys = list(subredditPostDictionary.keys())
+    postValues = list(subredditPostDictionary.values()) 
+
+    subredditCommentDictionary = stats.getCommentSubreddits(reddit.user.me())
+    commentKeys = list(subredditCommentDictionary.keys())
+    commentValues = list(subredditCommentDictionary.values()) 
+
 #User activity code
     # timevec = []
     # n = 0
@@ -165,7 +173,7 @@ def dashboard_page():
 #end user activity code
     
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
-            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, cloudData=cloudData) 
+            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, cloudData=cloudData, postKeys=postKeys, postValues=postValues, commentKeys=commentKeys, commentValues=commentValues) 
     #totalDays = total, days = daysact, post = postact)
 
 @app.route('/subreddit/<name>')
