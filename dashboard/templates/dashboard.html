@@ -152,10 +152,7 @@ Dashboard
 {% endblock %}
 {% block scripts %}
 <!-- Import javascript functions (should be able to add to existing route)-->
-<script
-        src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
+
 <script type="text/javascript"
          src="{{ url_for('static', filename='jQWCloudv3.4.1.js') }}"></script>
 <script type="text/javascript"
@@ -164,16 +161,33 @@ Dashboard
 
 <script type=text/javascript>
     var dict = JSON.parse('{{  jsdict  | tojson | safe  }}')
-    setupTopSubs(dict)
+    setupCommentsDays(dict)
     var topSubs = JSON.parse('{{  topSubs[0]  | tojson | safe  }}')
     setupSubPieChart(topSubs)
     //clearly you dont need to use json. Here I brought the python dict into JS and iterated through its
     //keys and values
     var cloudData = {{  cloudData  | safe  }}
     data = []
+    val = 0
+    colorVar = ''
     for (const [key, value] of Object.entries(cloudData)) {
       // console.log(key, value);
-      data.push({word: key, weight: value})
+      val = val + 1
+      switch(val%4) {
+          case 1:
+            colorVar = 'rgba(60, 145, 230, 1)'
+            break;
+          case 2:
+            colorVar = 'rgba(240, 93, 35, 1)'
+            break;
+          case 3:
+            colorVar = 'rgba(52, 46, 55, 1)'
+            break;
+          case 0:
+            colorVar = 'rgba(46, 71, 86, 1)'
+            break;
+      }
+      data.push({word: key, weight: value, color: colorVar})
     }
     makeCloud(data)
 </script>

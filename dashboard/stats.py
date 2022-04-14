@@ -4,8 +4,9 @@ import numpy as np
 import json 
 import time
 #in case we want to catch this error (happened to me once for no reason)
-from prawcore.exceptions import Forbidden
+# from prawcore.exceptions import Forbidden
 # import nltk
+# import pprint
 
 subsDict = {}
 with open('dashboard/subreddits.txt') as myfile:
@@ -27,19 +28,19 @@ def getAccountAge(user):
 
 def postingActivityDay(comments):
     supportSubs = ['test', 'videos','pcgaming']
-    DoTW = {'Sunday': 0, 'Monday': 0, 'Tuesday': 0, 'Wednesday': 0, 'Thursday': 0, 'Friday': 0, 'Saturday': 0,}
+    DoTW = {'Sun': 0, 'Mon': 0, 'Tues': 0, 'Wed': 0, 'Thur': 0, 'Fri': 0, 'Sat': 0,}
     for comment in comments:
         # if(str(comment.subreddit) in supportSubs):
         if datetime.fromtimestamp(comment['created']) > datetime.today() - timedelta(days=90):
             unix_val = datetime.fromtimestamp(comment['created'])
             day = unix_val.weekday()
-            if(day == 0): day = 'Sunday'
-            elif(day == 1): day = 'Monday'
-            elif(day == 2): day = 'Tuesday'
-            elif(day == 3): day = 'Wednesday'
-            elif(day == 4): day = 'Thursday'
-            elif(day == 5): day = 'Friday'
-            elif(day == 6): day = 'Saturday'
+            if(day == 0): day = 'Sun'
+            elif(day == 1): day = 'Mon'
+            elif(day == 2): day = 'Tues'
+            elif(day == 3): day = 'Wed'
+            elif(day == 4): day = 'Thur'
+            elif(day == 5): day = 'Fri'
+            elif(day == 6): day = 'Sat'
             if(day in DoTW):
                 DoTW[day] += 1
     return DoTW
@@ -147,35 +148,49 @@ def commentsOnDaysEngaged(comments):
     # stats.append(res)
     return res
 
-def sentimentAnalysis(upvotes, supportSub):
-    high = []
-    low = []
-    nltk.download('vader_lexicon')
-    # Initialize the VADER sentiment analyzer
-    from nltk.sentiment.vader import SentimentIntensityAnalyzer
-    analyzer = SentimentIntensityAnalyzer()
-    result = {}
-    commentList = []
+# def sentimentAnalysis(upvotes, supportSub):
+#     high = []
+#     low = []
+#     nltk.download('vader_lexicon')
+#     # Initialize the VADER sentiment analyzer
+#     from nltk.sentiment.vader import SentimentIntensityAnalyzer
+#     analyzer = SentimentIntensityAnalyzer()
+#     items = []#WE GOT A LIST CALLED
+    # result = {}
+    # commentList = []
     # generate list of comments
-    for comment in upvotes:
-        if(str(comment.subreddit) in supportSub):
-            if(len(comment.body)) > 10:
-                commentList.append(str(comment.body))
+    # for comment in upvotes:
+    #     if(str(comment.subreddit) in supportSub):
+    #         if(len(comment.body)) > 10:
+    #             commentList.append(str(comment.body))
 
     # get sentiment analysis per subreddit
 
-    result = {'pos': 0, 'neg': 0, 'neu': 0}
-    for comment in commentList:
-        score = analyzer.polarity_scores(comment)
-        if score['compound'] > 0.05:
-            result['pos'] += 1
-        elif score['compound'] < -0.05:
-            result['neg'] += 1
-        else:
-            result['neu'] += 1
+    # result = {'pos': 0, 'neg': 0, 'neu': 0}
+    # for comment in commentList:
+    #     score = analyzer.polarity_scores(comment)
+    #     if score['compound'] > 0.05:
+    #         result['pos'] += 1
+    #     elif score['compound'] < -0.05:
+    #         result['neg'] += 1
+    #     else:
+    #         result['neu'] += 1
 
-    print(result)       
-    return 0
+    # print(result)       
+    # return 0
+
+# def sentimentAnalysis(upvotes, supportSub):
+#     high = []
+#     low = []
+#     nltk.download('vader_lexicon')
+#     # Initialize the VADER sentiment analyzer
+#     from nltk.sentiment.vader import SentimentIntensityAnalyzer
+#     analyzer = SentimentIntensityAnalyzer()
+#     for upvote in upvotes:
+#         # if upvote['subreddit'] == supportSub:
+#             body = upvote['body']
+#             score = analyzer.polarity_scores(upvote['body'])
+            # print(f'Comment: {body} | Score: {score}')
 
 #should accept all three dictionaries with their respective frequencies organized by subreddit
 def getMaxValues(comments, submissions, upvotes):
@@ -289,6 +304,8 @@ def get_upvote_history(user):
             'body': comment.title
         }
         upvote_history.append(x)
+        # print(comment.__class__)
+        # pprint.pprint(vars(comment))
     return upvote_history
 
 def getUpvotedSubreddits(user):

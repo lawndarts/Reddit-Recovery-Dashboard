@@ -67,10 +67,11 @@ def dashboard_page():
     #Pull data from these objects
     submissions = stats.get_post_history(reddit.user.me())
     comments = stats.get_comment_history(reddit.user.me())
-    upvotedComments = stats.get_upvote_history(reddit.user.me())
+    #this only gets submissions
+    upvotedSubmissions = stats.get_upvote_history(reddit.user.me())
     upvotesBySubreddit = stats.getUpvotedSubreddits(reddit.user.me())
     end = time.time()
-    print(f'after object creation function {end - start}')
+    print(f'after object creation functions {end - start}')
     # Henry's code
 
     #Data for the graph that shows comments on given days of the week (useless)
@@ -96,6 +97,10 @@ def dashboard_page():
     cloudData = stats.wordsDict(comments)
     end = time.time()
     print(f'after latest function {end - start}')
+    #testing this
+    # stats.sentimentAnalysis(upvotedComments, 'publicfreakout')
+    mainRecoverySub = stats.getMax(topSubs[0])
+    
     
 
     sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())

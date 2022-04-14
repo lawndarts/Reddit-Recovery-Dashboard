@@ -1,14 +1,13 @@
 
-
-function setupTopSubs(dict){
+function setupCommentsDays(dict){
     dict = {
-        'Sunday': dict.Sunday,
-        'Monday': dict.Monday,
-        'Tuesday': dict.Tuesday,
-        'Wednesday': dict.Wednesday,
-        'Thursday': dict.Thursday,
-        'Friday': dict.Friday,
-        'Saturday': dict.Saturday
+        'Sun': dict.Sun,
+        'Mon': dict.Mon,
+        'Tues': dict.Tues,
+        'Wed': dict.Wed,
+        'Thur': dict.Thur,
+        'Fri': dict.Fri,
+        'Sat': dict.Sat
 
     }
     const labels = Object.keys(dict)
@@ -19,12 +18,26 @@ function setupTopSubs(dict){
       backgroundColor: 'rgba(240, 93, 35, 1)',
       borderColor: 'rgba(240, 93, 35, 1)',
       data: Object.values(dict),
+      fill: {
+              target: 'origin',
+              above: 'rgb(255, 0, 0)',   // Area will be red above the origin
+              below: 'rgb(0, 0, 255)'    // And blue below the origin
+            }
     }]
   };
   const config = {
-    type: 'bar',
+    type: 'line',
     data: data,
     options: {
+      //either xAxis or x
+    //   scales: {
+    //     xAxis: {
+    //         type: 'linear'
+    //     },
+    //     yAxis: {
+    //         type: 'linear'
+    //     }
+    // },
       plugins: {
           // title: {
           //   display: true,
@@ -33,12 +46,27 @@ function setupTopSubs(dict){
       }
     }
   };
+  
   const myChart = new Chart(
     document.getElementById('myChart'),
     config
   );
     
 }
+// working on new chart
+new Chart(ctx, {
+  data: {
+      datasets: [
+          {
+            fill: {
+              target: 'origin',
+              above: 'rgb(255, 0, 0)',   // Area will be red above the origin
+              below: 'rgb(0, 0, 255)'    // And blue below the origin
+            }
+          }
+      ]
+  }
+});
    //Pie chart config 
 function setupSubPieChart(topSubs){
     const entries = Object.entries(topSubs)
@@ -92,12 +120,13 @@ function setupSubPieChart(topSubs){
     configPie
     );
 }
-function makeCloud(){
-  // $(document).ready(function()
-  // {
+// this is some jquery. It only loads after the elements on the page loads I think. 
+function makeCloud(data){
+  $(document).ready(function()
+  {
     $("#wordCloud").jQWCloud({
       words: data,
-      //cloud_color: 'yellow',		
+      // cloud_color: 'rgba(60, 145, 230, 1)',
       minFont: 10,
       maxFont: 50,
       //fontOffset: 5,
@@ -117,14 +146,13 @@ function makeCloud(){
         alert("You have selected:" +$(this).text());
       },		              
       beforeCloudRender: function(){
-             date1=new Date();
-       },
-       afterCloudRender: function(){
+            date1=new Date();
+      },
+      afterCloudRender: function(){
           var date2=new Date();
           console.log("Cloud Completed in "+(date2.getTime()-date1.getTime()) +" milliseconds");
         }
     });
     
-  // });
+  });
 }
-//need to add the data
