@@ -69,6 +69,7 @@ def dashboard_page():
     comments = stats.get_comment_history(reddit.user.me())
     #this only gets submissions
     upvotedSubmissions = stats.get_upvote_history(reddit.user.me())
+    downvotedSubmissions = stats.get_downvote_history(reddit.user.me())
     upvotesBySubreddit = stats.getUpvotedSubreddits(reddit.user.me())
     end = time.time()
     print(f'after object creation functions {end - start}')
@@ -87,7 +88,7 @@ def dashboard_page():
     #Gets the subreddit the user upvoted the most
     maxUpvote = stats.getMax(upvotesBySubreddit)
     maxStats = [maxComment, maxSubmission, maxUpvote]
-    stats.getAccountAge(reddit.user.me())
+    AccountAge = stats.getAccountAge(reddit.user.me())
     #returns average number of comments made on days commented at least once
     #add average comments per day using age of acc / # comments and add the data below after
     avg = stats.commentsOnDaysEngaged(comments)
@@ -101,7 +102,6 @@ def dashboard_page():
     # stats.sentimentAnalysis(upvotedComments, 'publicfreakout')
     mainRecoverySub = stats.getMax(topSubs[0])
     
-    
 
     sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
     li = list(sortedSubDict.keys())
@@ -114,67 +114,12 @@ def dashboard_page():
     subredditCommentDictionary = stats.getCommentSubreddits(reddit.user.me())
     commentKeys = list(subredditCommentDictionary.keys())
     commentValues = list(subredditCommentDictionary.values()) 
-
-#User activity code
-    # timevec = []
-    # n = 0
-    # newday = 0
-
-    # #print('Posted Comments:')
-    # for comment in reddit.user.me().comments.new(limit=None): 
-    #     time = comment.created_utc 
-    #     day = int(time/86400)
-    #     c = timevec.count(day)
-    #     if c == 0:
-    #         timevec.append(day)
-    #         newday += 1
-    #     n+= 1
-        
-    # #print('Posted Subreddits:')  
-    # for subm in reddit.user.me().submissions.new(limit=None):
-    #     time = subm.created_utc
-    #     day = int(time/86400)
-    #     c = timevec.count(day)
-    #     if c == 0:
-    #         timevec.append(day)
-    #         newday += 1
-    #     n+= 1 
-
-    #print('Upvoted Subreddits:')   
-    # for subupvote in reddit.user.me().upvoted(limit=None):
-    #     time = subupvote.created_utc
-    #     day = int(time/86400)
-    #     c = timevec.count(day)
-    #     if c == 0:
-    #         timevec.append(day)
-    #         newday += 1
-    #     n += 1
-
-
-    # #print('Downvoted Subreddits:')
-    # for subdownvote in reddit.user.me().downvoted(limit=None):
-    #     time = subdownvote.created_utc
-    #     day = int(time/86400)
-    #     c = timevec.count(day)
-    #     if c == 0:
-    #         timevec.append(day)
-    #         newday += 1
-    #     n+= 1
-
-    # minday = min(timevec)
-    # maxday = max(timevec)
-    # total = maxday - minday
-
-    # numweeks = total/7
-    # daysact = newday/numweeks
-
-    # postact = n/newday
-    
-#end user activity code
-    
+	
+    daysact, postact = stats.activityStats(submissions, comments, upvotedSubmissions, downvotedSubmissions)
+	
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
-            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, cloudData=cloudData, postKeys=postKeys, postValues=postValues, commentKeys=commentKeys, commentValues=commentValues) 
-    #totalDays = total, days = daysact, post = postact)
+            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, cloudData=cloudData, postKeys=postKeys, postValues=postValues, commentKeys=commentKeys, commentValues=commentValues,
+            totalDays = AccountAge, days = daysact, post = postact)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):

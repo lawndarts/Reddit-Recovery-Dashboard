@@ -17,6 +17,55 @@ supportSubs = list(subsDict.keys())
 for i in range(len(supportSubs)):
     supportSubs[i] = supportSubs[i][2:]
 
+def activityStats(submissions, comments, upvotedSubmissions, downvotedSubmissions):
+    timevec = []
+
+    n = 0
+    newday = 0
+
+    for item in submissions:
+        time = item['created']
+        day = int(time/86400)
+        c = timevec.count(day)
+        if c == 0:
+            timevec.append(day)
+            newday += 1
+        n+= 1
+		
+    for item in comments:
+        time = item['created']
+        day = int(time/86400)
+        c = timevec.count(day)
+        if c == 0:
+            timevec.append(day)
+            newday += 1
+        n+= 1
+
+    for item in upvotedSubmissions:
+        time = item['created']
+        day = int(time/86400)
+        c = timevec.count(day)
+        if c == 0:
+            timevec.append(day)
+            newday += 1
+        n+= 1
+
+    for item in downvotedSubmissions:
+        time = item['created']
+        day = int(time/86400)
+        c = timevec.count(day)
+        if c == 0:
+            timevec.append(day)
+            newday += 1
+        n+= 1
+        
+	
+    daysact = newday
+    postact = n/newday
+	
+    return daysact, postact
+
+
 def getAccountAge(user):
     date = datetime.fromtimestamp(user.created_utc)
     now = datetime.now()
@@ -307,6 +356,21 @@ def get_upvote_history(user):
         # print(comment.__class__)
         # pprint.pprint(vars(comment))
     return upvote_history
+    
+def get_downvote_history(user):
+    downvote_history = []
+    for comment in user.downvoted():
+        temp = comment.subreddit
+        x = {
+            'id': comment.id,
+            'created': comment.created_utc,
+            'subreddit': temp.display_name,
+            'body': comment.title
+        }
+        downvote_history.append(x)
+        # print(comment.__class__)
+        # pprint.pprint(vars(comment))
+    return downvote_history
 
 def getUpvotedSubreddits(user):
     global sortedSubDict

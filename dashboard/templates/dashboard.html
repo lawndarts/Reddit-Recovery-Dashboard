@@ -44,7 +44,39 @@ Dashboard
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Comment frequency (Past 90 days)</h5>
+              <h2 class="card-title">User Statistics</h2>
+				<hr>
+				<h4>Days since user registration:</h4>
+				
+				<font size="14" face="Courier New" >
+				<table>
+				<tr>
+					<td>{{totalDays}}</td>
+				</tr>
+				</table>
+				</font>
+				
+				<hr>
+				<h4>Number of active days:</h4>
+				<font size="14" face="Courier New" >
+				<table>
+				<tr>
+					<td>{{days}}</td>
+				</tr>
+				</table>
+				</font>
+				
+				<hr>
+				<h4>Number of activities per active day:</h4>
+				<font size="14" face="Courier New" >
+				<table>
+				<tr>
+					<td>{{post}}</td>
+				</tr>
+				</table>
+				</font>
+				
+				<hr>
               <!-- <canvas id="myChart"></canvas> -->
             </div>
           </div>
@@ -87,39 +119,8 @@ Dashboard
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-			<h2 class="card-title">User Statistics</h2>
-				<hr>
-				<h4>Days since user registration:</h4>
-				
-				<font size="14" face="Courier New" >
-				<table>
-				<tr>
-					<td>{{totalDays}}</td>
-				</tr>
-				</table>
-				</font>
-				
-				<hr>
-				<h4>Number of active days:</h4>
-				<font size="14" face="Courier New" >
-				<table>
-				<tr>
-					<td>{{days}}</td>
-				</tr>
-				</table>
-				</font>
-				
-				<hr>
-				<h4>Number of activities per active day:</h4>
-				<font size="14" face="Courier New" >
-				<table>
-				<tr>
-					<td>{{post}}</td>
-				</tr>
-				</table>
-				</font>
-				
-				<hr>
+			<h5 class="card-title">Comment frequency (Past 90 days)</h5>
+              <!-- <canvas id="myChart"></canvas> -->
             </div>
           </div>
         </div>
