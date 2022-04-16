@@ -14,7 +14,7 @@ Dashboard
   
     <div class="row">
         <div class="col-sm-6">
-          <div class="card">
+          <div class="card shadow p-2  mb-5 bg-white rounded">
             <div class="card-body">
                 <h5 class="card-title">Top 10 Subreddits Based on Posts</h5>
                 <canvas id="postSubreddits"></canvas>
@@ -22,7 +22,7 @@ Dashboard
           </div>
         </div>
         <div class="col-sm-6">
-          <div class="card">
+          <div class="card shadow p-2  mb-5 bg-white rounded">
             <div class="card-body">
               <h5 class="card-title">Upvotes by Subreddit (Click for more information.)</h5>
               <canvas id="upvoteSubreddits"></canvas> 
@@ -34,7 +34,7 @@ Dashboard
       
       <div class="row">
         <div class="col-sm-6">
-          <div class="card">
+          <div class="card shadow p-2  mb-5 bg-white rounded">
             <div class="card-body">
               <h5 class="card-title">Top 10 Subreddits Based on Comments</h5>
               <canvas id="commentSubreddits"></canvas>
@@ -42,7 +42,7 @@ Dashboard
           </div>
         </div>
         <div class="col-sm-6">
-          <div class="card">
+          <div class="card shadow p-2  mb-5 bg-white rounded">
             <div class="card-body">
               <h2 class="card-title">User Statistics</h2>
 				<hr>
@@ -85,10 +85,9 @@ Dashboard
   
       <div class="row">
         <div class="col-sm-6">
-          <div class="card">
-            <h5 class="card-title d-flex justify-content-center">Word Cloud</h5>
+          <div class="card shadow p-2  mb-5 bg-white rounded">
             <div class="card-body">
-              
+              <h5 class="card-title d-flex justify-content-center">Word Cloud</h5>
               <div class="row-md pt-5" style="max-width: 100%;">
                 <div id="wordCloud"></div>
               </div>
@@ -97,7 +96,7 @@ Dashboard
           </div>
         </div>
         <div class="col-sm-6">
-          <div class="card">
+          <div class="card shadow p-2  mb-5 bg-white rounded">
             <div class="card-body">
               <h5 class="card-title">Main Recovery Subreddit</h5>
               <div></div>
@@ -105,48 +104,30 @@ Dashboard
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Seven</h5>
-              <div></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-			<h5 class="card-title">Comment frequency (Past 90 days)</h5>
-              <!-- <canvas id="myChart"></canvas> -->
-            </div>
-          </div>
-        </div>
-      </div>      
+      </div>    
   </main>
   <!-- comment stats section -->
-  <div class="d-flex pb-0 mb-0 justify-content-center">
-    <h5 class="mb-0"> comment statistics</h5>
-  </div>
-    <div class="card px-4 m-4 mb-0" style="height: 25em;">
+    <div class="card shadow p-2  mb-5 bg-white rounded px-4 m-4 mb-0" style="height: 30em;">
       <div class="card-body">
+        <div class="d-flex pb-0 mb-0 justify-content-center">
+          <h5 class="mb-0"> Comment Statistics</h5>
+        </div>
         <div class="row d-flex justify-content-between">
           <!-- first column -->
-          <div class="d-flex flex-column" style="width: 70%;">
-            <p class="card-text" >Average Comment Length: &emsp;
-              <strong>{{ avgStats[0] }} characters (Median: {{ avgStats[1] }})</strong></p>
+          <div class="d-flex flex-column mt-2" style="width: 70%;">
+              <h6 class="card-title d-flex">Comment Frequency (Past 90 Days)</h6>
               <div class="bar-div" style="max-width: 75%;">
                 <canvas id="myChart"></canvas>
               </div>
+              <p class="card-text" >Average Comment Length: &emsp;
+                <strong>{{ avgStats[0] }} characters (Median: {{ avgStats[1] }})</strong></p>              
           </div>
           <!-- second column -->
-          <div class="d-flex flex-column" style="width: 30%;">
+          <div class="d-flex flex-column mt-2" style="width: 30%;">
+            <h6 class="card-title d-flex">Comments by Subreddit</h6>
             <div class="pchart-container" style="max-width: 175px; height: 175px;">
               <canvas class="pchart" id="pieChart1"></canvas>
-            </div>
-            
+            </div>           
           </div>
         </div>
       </div>
