@@ -15,13 +15,12 @@ function setupCommentsDays(dict){
     labels: labels,
     datasets: [{
       label: 'What days do I post the most?',
-      backgroundColor: 'rgba(240, 93, 35, 1)',
-      borderColor: 'rgba(240, 93, 35, 1)',
+      backgroundColor: '#f05d23',
+      // borderColor: '#3c91e6',
+      // borderWidth: 4,
       data: Object.values(dict),
       fill: {
-              target: 'origin',
-              above: 'rgb(255, 0, 0)',   // Area will be red above the origin
-              below: 'rgb(0, 0, 255)'    // And blue below the origin
+              target: 'origin'
             }
     }]
   };
@@ -29,16 +28,34 @@ function setupCommentsDays(dict){
     type: 'line',
     data: data,
     options: {
+      elements: {
+        line: {
+            borderJoinStyle: 'round'
+        }
+    },
       //either xAxis or x
-    //   scales: {
-    //     xAxis: {
-    //         type: 'linear'
-    //     },
-    //     yAxis: {
-    //         type: 'linear'
-    //     }
-    // },
+      scales: {
+        x: {
+            grid: {
+              display: false
+            }
+            // type: 'linear'
+        },
+        y: {
+          ticks: {
+            precision:0
+          },
+          grid: {
+            display: false
+          },
+            // type: 'linear'
+            beginAtZero: true
+        }
+    },
       plugins: {
+        legend: {
+          display: false
+        }
           // title: {
           //   display: true,
           //   text: 'Something'
@@ -53,20 +70,7 @@ function setupCommentsDays(dict){
   );
     
 }
-// working on new chart
-new Chart(ctx, {
-  data: {
-      datasets: [
-          {
-            fill: {
-              target: 'origin',
-              above: 'rgb(255, 0, 0)',   // Area will be red above the origin
-              below: 'rgb(0, 0, 255)'    // And blue below the origin
-            }
-          }
-      ]
-  }
-});
+
    //Pie chart config 
 function setupSubPieChart(topSubs){
     const entries = Object.entries(topSubs)
@@ -89,6 +93,7 @@ function setupSubPieChart(topSubs){
       label: 'My First Dataset',
       data: countsArray,
       backgroundColor: [
+        // 2e4756,f05d23,ffffff,342e37,3c91e6
         'rgba(60, 145, 230, 1)',
         'rgba(52, 46, 55, 1)',
         'rgba(240, 93, 35, 1)',

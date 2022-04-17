@@ -26,22 +26,28 @@ Home
 
         </p>
         </div>
-        {% if current_user.is_authenticated %}
-        <!-- put whatever here -->
-        {% else %}
             <div class="col-lg-6 ">
                 <div class="mt-5 w-50 border rounded shadow-sm mt-2 mx-auto p-3 text-center">
-                    <p class="text-start">
+                    <p class="text-center">
+                    {% if current_user.is_authenticated %}
+                    Click here to load dashboard
+                    {% else %}
                     By clicking "Link Account" you will authorize the support dashboard to pull your post, comment
                     and upvote history
+                    {% endif %}
                     </p>
+                    {% if current_user.is_authenticated %}
+                    <div class="mt-5">
+                        <a class="btn btn-sm btn-success" onclick="loading();" href="{{ url_for('dashboard_page') }}">Go to dashboard</a>
+                    </div>
+                    {% else %}
                     <div class="mt-5">
                         <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Link Account</a>
-                    </form>
-                </div>
+                    </div>
+                    {% endif %}
+                    
             </div>
         </div>
-        {% endif %}
     </div>
 </div>
 <div class="nothing ms-5">

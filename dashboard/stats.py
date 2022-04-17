@@ -24,8 +24,8 @@ def activityStats(submissions, comments, upvotedSubmissions, downvotedSubmission
     newday = 0
 
     for item in submissions:
-        time = item['created']
-        day = int(time/86400)
+        timeObj = item['created']
+        day = int(timeObj/86400)
         c = timevec.count(day)
         if c == 0:
             timevec.append(day)
@@ -33,8 +33,8 @@ def activityStats(submissions, comments, upvotedSubmissions, downvotedSubmission
         n+= 1
 		
     for item in comments:
-        time = item['created']
-        day = int(time/86400)
+        timeObj = item['created']
+        day = int(timeObj/86400)
         c = timevec.count(day)
         if c == 0:
             timevec.append(day)
@@ -42,8 +42,8 @@ def activityStats(submissions, comments, upvotedSubmissions, downvotedSubmission
         n+= 1
 
     for item in upvotedSubmissions:
-        time = item['created']
-        day = int(time/86400)
+        timeObj = item['created']
+        day = int(timeObj/86400)
         c = timevec.count(day)
         if c == 0:
             timevec.append(day)
@@ -51,8 +51,8 @@ def activityStats(submissions, comments, upvotedSubmissions, downvotedSubmission
         n+= 1
 
     for item in downvotedSubmissions:
-        time = item['created']
-        day = int(time/86400)
+        timeObj = item['created']
+        day = int(timeObj/86400)
         c = timevec.count(day)
         if c == 0:
             timevec.append(day)
@@ -372,56 +372,58 @@ def get_downvote_history(user):
         # pprint.pprint(vars(comment))
     return downvote_history
 
-def getUpvotedSubreddits(user):
+def getUpvotedSubreddits(upvotes):
     global sortedSubDict
     #get posts upvoted by user
     #user = reddit.redditor('kah277')
-    upvotedPosts = user.upvoted()
+    # upvotedPosts = user.upvoted()
 
     #put subreddit name and upvote totals in dictionary
     subredditDict = {}
 
-    for u in upvotedPosts:
-
-        if u.subreddit.display_name not in subredditDict:
-            subredditDict[u.subreddit.display_name] = 1
+    for u in upvotes:
+        sub = u['subreddit']
+        if sub not in subredditDict:
+            subredditDict[sub] = 1
         else:
-            subredditDict[u.subreddit.display_name]+=1
+            subredditDict[sub]+=1
 
     #sort it from highest count to lowest
     sortedSubDict = dict(sorted(subredditDict.items(), key=lambda x: x[1], reverse=True))
     return sortedSubDict
-def getPostSubreddits(user):
+def getPostSubreddits(posts):
     global subredditPostDictionary 
 
-    posts = user.submissions.new(limit=None)
+    # posts = user.submissions.new(limit=None)
 
     #put subreddit name and upvote totals in dictionary
     subredditPostDict = {}
 
     for p in posts:
-        if p.subreddit.display_name not in subredditPostDict:
-            subredditPostDict[p.subreddit.display_name]=1
+        sub = p['subreddit']
+        if sub not in subredditPostDict:
+            subredditPostDict[sub]=1
         else:
-            subredditPostDict[p.subreddit.display_name]+=1
+            subredditPostDict[sub]+=1
 
     #sort it from highest count to lowest
     subredditPostDictionary  = dict(sorted(subredditPostDict.items(), key=lambda x: x[1], reverse=True))
     return subredditPostDictionary 
-def getCommentSubreddits(user):
+def getCommentSubreddits(comments):
     global subredditCommentDictionary
     #get posts upvoted by user
     #user = reddit.redditor('kah277')
-    comments = user.comments.new(limit=None)
+    # comments = user.comments.new(limit=None)
 
     #put subreddit name and upvote totals in dictionary
     subredditCommentDict = {}
 
     for c in comments:
-        if c.subreddit.display_name not in subredditCommentDict:
-            subredditCommentDict[c.subreddit.display_name]=1
+        sub = c['subreddit']
+        if sub not in subredditCommentDict:
+            subredditCommentDict[sub]=1
         else:
-            subredditCommentDict[c.subreddit.display_name]+=1
+            subredditCommentDict[sub]+=1
 
     #sort it from highest count to lowest
     subredditCommentDictionary = dict(sorted(subredditCommentDict.items(), key=lambda x: x[1], reverse=True))

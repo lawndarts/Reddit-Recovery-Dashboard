@@ -70,7 +70,8 @@ def dashboard_page():
     #this only gets submissions
     upvotedSubmissions = stats.get_upvote_history(reddit.user.me())
     downvotedSubmissions = stats.get_downvote_history(reddit.user.me())
-    upvotesBySubreddit = stats.getUpvotedSubreddits(reddit.user.me())
+    # upvotesBySubreddit = stats.getUpvotedSubreddits(reddit.user.me())
+    upvotesBySubreddit = stats.getUpvotedSubreddits(upvotedSubmissions)
     end = time.time()
     print(f'after object creation functions {end - start}')
     # Henry's code
@@ -85,7 +86,7 @@ def dashboard_page():
     maxComment = stats.getMax(topSubs[0])
     #Gets the subreddit the user posted the most
     maxSubmission = stats.getMax(topSubs[1])
-    #Gets the subreddit the user upvoted the most
+    #Gets the subreddit the user upvoted the most(submissions only)
     maxUpvote = stats.getMax(upvotesBySubreddit)
     maxStats = [maxComment, maxSubmission, maxUpvote]
     AccountAge = stats.getAccountAge(reddit.user.me())
@@ -93,33 +94,28 @@ def dashboard_page():
     #add average comments per day using age of acc / # comments and add the data below after
     avg = stats.commentsOnDaysEngaged(comments)
     #gets data for wordcloud
-    end = time.time()
-    print(f'before latest function {end - start}')
     cloudData = stats.wordsDict(comments)
-    end = time.time()
-    print(f'after latest function {end - start}')
-    #testing this
-    # stats.sentimentAnalysis(upvotedComments, 'publicfreakout')
     mainRecoverySub = stats.getMax(topSubs[0])
-    
 
-    sortedSubDict = stats.getUpvotedSubreddits(reddit.user.me())
+    sortedSubDict = stats.getUpvotedSubreddits(upvotedSubmissions)
     li = list(sortedSubDict.keys())
     upvoteCounts = list(sortedSubDict.values())     
 
-    subredditPostDictionary = stats.getPostSubreddits(reddit.user.me())
+    subredditPostDictionary = stats.getPostSubreddits(submissions)
     postKeys = list(subredditPostDictionary.keys())
     postValues = list(subredditPostDictionary.values()) 
 
-    subredditCommentDictionary = stats.getCommentSubreddits(reddit.user.me())
+    subredditCommentDictionary = stats.getCommentSubreddits(comments)
     commentKeys = list(subredditCommentDictionary.keys())
     commentValues = list(subredditCommentDictionary.values()) 
 	
     daysact, postact = stats.activityStats(submissions, comments, upvotedSubmissions, downvotedSubmissions)
-	
+
+
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
-            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, cloudData=cloudData, postKeys=postKeys, postValues=postValues, commentKeys=commentKeys, commentValues=commentValues,
-            totalDays = AccountAge, days = daysact, post = postact)
+            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, cloudData=cloudData, postKeys=postKeys,
+             postValues=postValues, commentKeys=commentKeys, commentValues=commentValues,totalDays = AccountAge,
+              days = daysact, post = postact)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):

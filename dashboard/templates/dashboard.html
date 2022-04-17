@@ -107,28 +107,31 @@ Dashboard
       </div>    
   </main>
   <!-- comment stats section -->
-    <div class="card shadow p-2  mb-5 bg-white rounded px-4 m-4 mb-0" style="height: 30em;">
+    <div class="card shadow p-2  mb-5 bg-white rounded px-4 m-4 mb-0">
       <div class="card-body">
         <div class="d-flex pb-0 mb-0 justify-content-center">
           <h5 class="mb-0"> Comment Statistics</h5>
         </div>
         <div class="row d-flex justify-content-between">
-          <!-- first column -->
+          <!-- first column row 1-->
           <div class="d-flex flex-column mt-2" style="width: 70%;">
               <h6 class="card-title d-flex">Comment Frequency (Past 90 Days)</h6>
-              <div class="bar-div" style="max-width: 75%;">
-                <canvas id="myChart"></canvas>
-              </div>
+              
               <p class="card-text" >Average Comment Length: &emsp;
                 <strong>{{ avgStats[0] }} characters (Median: {{ avgStats[1] }})</strong></p>              
           </div>
-          <!-- second column -->
-          <div class="d-flex flex-column mt-2" style="width: 30%;">
-            <h6 class="card-title d-flex">Comments by Subreddit</h6>
-            <div class="pchart-container" style="max-width: 175px; height: 175px;">
-              <canvas class="pchart" id="pieChart1"></canvas>
-            </div>           
+          <!-- second column row 1-->
+          <div class="d-flex flex-column mt-2 justify-content-center" style="width: 30%;">
+            <!-- <h6 class="card-title d-flex">Comments by Subreddit</h6> -->
+              <canvas class="pchart p-4" id="pieChart1" style="max-width: 100%; width: 100%; height: 100%;"></canvas>
+                      
           </div>
+          <div class="border border-5 rounded" style="height: 14em; max-width: 50%;
+            width: 50%;">
+            <canvas id="myChart" style=" max-height: 100%;"></canvas>  
+          </div>
+        </div>
+          
         </div>
       </div>
     </div>
@@ -148,8 +151,7 @@ Dashboard
     setupCommentsDays(dict)
     var topSubs = JSON.parse('{{  topSubs[0]  | tojson | safe  }}')
     setupSubPieChart(topSubs)
-    //clearly you dont need to use json. Here I brought the python dict into JS and iterated through its
-    //keys and values
+    //clearly you dont need to use json.parse. I used the python Json package to send the dict as json.
     var cloudData = {{  cloudData  | safe  }}
     data = []
     val = 0
