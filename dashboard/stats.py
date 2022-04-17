@@ -119,7 +119,7 @@ def getMax(theDict):
     max_key = max(theDict, key=theDict.get)
     return max_key
 
-def wordsDict(comments):
+def wordsDict(comments, size):
     start = time.time()
     supportSubs = ['test', 'videos','pcgaming']
     wordsMain = {}
@@ -149,7 +149,7 @@ def wordsDict(comments):
     # print(wordsMain)
     {k: v for k, v in wordsMain.items() if v}
     wordsMain = dict(sorted(wordsMain.items(), key=lambda item: item[1]))
-    wordsMain = dict(list(wordsMain.items())[-40:])
+    wordsMain = dict(list(wordsMain.items())[-size:])
     json_object = json.dumps(wordsMain, indent = 4) 
     # print(json_object)
     end = time.time()
@@ -197,49 +197,6 @@ def commentsOnDaysEngaged(comments):
     # stats.append(res)
     return res
 
-# def sentimentAnalysis(upvotes, supportSub):
-#     high = []
-#     low = []
-#     nltk.download('vader_lexicon')
-#     # Initialize the VADER sentiment analyzer
-#     from nltk.sentiment.vader import SentimentIntensityAnalyzer
-#     analyzer = SentimentIntensityAnalyzer()
-#     items = []#WE GOT A LIST CALLED
-    # result = {}
-    # commentList = []
-    # generate list of comments
-    # for comment in upvotes:
-    #     if(str(comment.subreddit) in supportSub):
-    #         if(len(comment.body)) > 10:
-    #             commentList.append(str(comment.body))
-
-    # get sentiment analysis per subreddit
-
-    # result = {'pos': 0, 'neg': 0, 'neu': 0}
-    # for comment in commentList:
-    #     score = analyzer.polarity_scores(comment)
-    #     if score['compound'] > 0.05:
-    #         result['pos'] += 1
-    #     elif score['compound'] < -0.05:
-    #         result['neg'] += 1
-    #     else:
-    #         result['neu'] += 1
-
-    # print(result)       
-    # return 0
-
-# def sentimentAnalysis(upvotes, supportSub):
-#     high = []
-#     low = []
-#     nltk.download('vader_lexicon')
-#     # Initialize the VADER sentiment analyzer
-#     from nltk.sentiment.vader import SentimentIntensityAnalyzer
-#     analyzer = SentimentIntensityAnalyzer()
-#     for upvote in upvotes:
-#         # if upvote['subreddit'] == supportSub:
-#             body = upvote['body']
-#             score = analyzer.polarity_scores(upvote['body'])
-            # print(f'Comment: {body} | Score: {score}')
 
 #should accept all three dictionaries with their respective frequencies organized by subreddit
 def getMaxValues(comments, submissions, upvotes):

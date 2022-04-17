@@ -94,7 +94,7 @@ def dashboard_page():
     #add average comments per day using age of acc / # comments and add the data below after
     avg = stats.commentsOnDaysEngaged(comments)
     #gets data for wordcloud
-    cloudData = stats.wordsDict(comments)
+    cloudData = stats.wordsDict(comments, 35)
     mainRecoverySub = stats.getMax(topSubs[0])
 
     sortedSubDict = stats.getUpvotedSubreddits(upvotedSubmissions)
