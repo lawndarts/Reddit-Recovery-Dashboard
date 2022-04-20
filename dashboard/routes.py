@@ -83,12 +83,12 @@ def dashboard_page():
     #Returns the average number of characters per comment
     avgStats = stats.averageCommentLengthSupport(comments)
     #Gets the subreddit the user commented on the most
-    maxComment = stats.getMax(topSubs[0])
+    maxComment, maxComNum = stats.getMax(topSubs[0])
     #Gets the subreddit the user posted the most
-    maxSubmission = stats.getMax(topSubs[1])
+    maxSubmission, maxSubNum = stats.getMax(topSubs[1])
     #Gets the subreddit the user upvoted the most(submissions only)
-    maxUpvote = stats.getMax(upvotesBySubreddit)
-    maxStats = [maxComment, maxSubmission, maxUpvote]
+    maxUpvote, maxUpNum = stats.getMax(upvotesBySubreddit)
+    maxStats = [[maxComment,maxComNum] ,[maxSubmission,maxSubNum], [maxUpvote,maxUpNum]]
     AccountAge = stats.getAccountAge(reddit.user.me())
     #returns average number of comments made on days commented at least once
     #add average comments per day using age of acc / # comments and add the data below after

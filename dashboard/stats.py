@@ -117,7 +117,7 @@ def activityCountSubreddit(comments, submissions):
 
 def getMax(theDict):
     max_key = max(theDict, key=theDict.get)
-    return max_key
+    return max_key, theDict[max_key]
 
 def wordsDict(comments, size):
     start = time.time()

@@ -88,18 +88,22 @@ Dashboard
           <div class="card shadow p-2  mb-5 bg-white rounded">
             <div class="card-body">
               <h5 class="card-title d-flex justify-content-center">Word Cloud</h5>
-              <div class="row-md pt-5" style="max-width: 100%;">
-                <div id="wordCloud"></div>
-              </div>
+              
               
             </div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="card shadow p-2  mb-5 bg-white rounded">
-            <div class="card-body">
-              <h5 class="card-title">Main Recovery Subreddit</h5>
-              <div></div>
+            <div class="card-body flex-column">
+              <h5 class="card-title lead text-center">Main Recovery Subreddits</h5>
+              <div>
+                <p class="" style="font-size: .8em;"><br>
+                  Most comments:&ensp;<strong>{{ maxStats[0][0] }}({{ maxStats[0][1] }})</strong><br>
+                  Most submissions:&ensp;<strong>{{ maxStats[1][0] }}({{ maxStats[1][1] }})</strong><br>
+                  Most upvoted submissions:&ensp;<strong>{{ maxStats[2][0] }}({{ maxStats[2][1] }})</strong><br>
+                </p>
+              </div>
               <p class="card-text"></p>
             </div>
           </div>
@@ -107,29 +111,41 @@ Dashboard
       </div>    
   </main>
   <!-- comment stats section -->
-    <div class="card shadow p-2  mb-5 bg-white rounded px-4 m-4 mb-0">
+    <div class="container shadow p-2  mb-5 bg-white rounded px-4 m-4 mb-0">
       <div class="card-body">
         <div class="d-flex pb-0 mb-0 justify-content-center">
-          <h5 class="mb-0"> Comment Statistics</h5>
+          <div>
+            <h5 class="mb-0"> Comment Statistics</h5>
+          </div>
+        
         </div>
         <div class="row d-flex justify-content-between">
           <!-- first column row 1-->
           <div class="d-flex flex-column mt-2" style="width: 70%;">
-              <h6 class="card-title d-flex">Comment Frequency (Past 90 Days)</h6>
+              
               
               <p class="card-text" >Average Comment Length: &emsp;
                 <strong>{{ avgStats[0] }} characters (Median: {{ avgStats[1] }})</strong></p>              
           </div>
           <!-- second column row 1-->
           <div class="d-flex flex-column mt-2 justify-content-center" style="width: 30%;">
-            <!-- <h6 class="card-title d-flex">Comments by Subreddit</h6> -->
+            <p class="lead align-self-center pb-0 mb-0" style="font-size: .9em;">Comments by Subreddit</p>
               <canvas class="pchart p-4" id="pieChart1" style="max-width: 100%; width: 100%; height: 100%;"></canvas>
                       
           </div>
-          <div class="border border-5 rounded" style="height: 14em; max-width: 50%;
-            width: 50%;">
-            <canvas id="myChart" style=" max-height: 100%;"></canvas>  
+            <div class="d-flex border border-5 rounded justify-content-center" style="width: 100%;">
+              <div style="width: 50%;">
+                <div class="row-md mt-5 pt-5 pe-4" style="max-width: 100%;">
+                  <div id="wordCloud"></div>
+                </div>
+              </div>
+              <div class=" d-flex flex-column" style="height: 14em; max-width: 50%;
+              width: 50%;">
+              <h6 class="card-title lead align-self-center">Comment Frequency (Past 90 Days)</h6>
+              <canvas id="myChart" style=" max-height: 100%;"></canvas>  
+            </div>
           </div>
+          
         </div>
           
         </div>
