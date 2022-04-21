@@ -118,12 +118,14 @@ def dashboard_page():
     daysact, postact = stats.activityStats(submissions, comments, upvotedSubmissions, downvotedSubmissions)
 
 
+    allRRSubreddits_List = ["stopdrinking", "RedditorsinRecovery", "alcoholism", "addiction", "AtheistTwelveSteppers", "secularsobriety", "addictionprevention", "alcoholicsanonymous", "ResearchRecovery", "Alcoholism_Medication", "cutdowndrinking", "dryalcoholics", "recoverywithoutAA", "cripplingalcoholism"]
+
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
             li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, cloudData=cloudData, daysEngaged=daysEngaged, 
             bestComment=bestComment, worstComment=worstComment,weeklyComments=weeklyComments,
             mainRecoverySub=mainRecoverySub,
              postKeys=postKeys, postValues=postValues, commentKeys=commentKeys, commentValues=commentValues,
-            totalDays = AccountAge, days = daysact, post = postact)
+            totalDays = AccountAge, days = daysact, post = postact, allRRSubreddits_List = allRRSubreddits_List)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):
