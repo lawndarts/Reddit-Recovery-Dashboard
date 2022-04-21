@@ -84,7 +84,7 @@ Dashboard
       </div>
   
       <div class="row">
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
           <div class="card shadow p-2  mb-5 bg-white rounded">
             <div class="card-body">
               <h5 class="card-title d-flex justify-content-center">Main Recovery Subreddits</h5>
@@ -96,7 +96,7 @@ Dashboard
               
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="col-sm-6">
           <div class="card shadow p-2  mb-5 bg-white rounded">
             <div class="card-body flex-column">
@@ -107,8 +107,17 @@ Dashboard
                   Most submissions:&ensp;<strong>{{ maxStats[1][0] }}({{ maxStats[1][1] }})</strong><br>
                   Most upvoted submissions:&ensp;<strong>{{ maxStats[2][0] }}({{ maxStats[2][1] }})</strong><br>
                 </p>
+                <p class="card-text lead" style="font-size: .9em;"><strong>Best Comment ({{ bestComment['score'] }}): </strong></p>
+                <p class="card-text lead" style="font-size: .8em;">{{ bestComment['body'][0:200] }}....</p>             
+                <p class="card-text lead" style="font-size: .9em;"><strong>Worst Comment ({{ worstComment['score'] }}): </strong></p>
+                <p class="card-text lead" style="font-size: .8em;">{{ worstComment['body'][0:200] }}....</p>  
+                <br>
+                {% if weeklyComments %}
+                <p>naaa</p>
+                {% else %}
+                <p>You post most frequently on {{ mainRecoverySub }}, but you don't post at least once a week</p>
+                {% endif %}
               </div>
-              <p class="card-text"></p>
             </div>
           </div>
         </div>
@@ -119,7 +128,7 @@ Dashboard
       <div class="card-body">
         <div class="d-flex pb-0 mb-0 justify-content-center">
           <div>
-            <h5 class="mb-0"> Comment Statistics</h5>
+            <h5 class="mb-0 pb-2"> Comment Statistics</h5>
           </div>
         
         </div>
@@ -128,8 +137,13 @@ Dashboard
           <div class="d-flex flex-column mt-2" style="width: 70%;">
               
               
-              <p class="card-text" >Average Comment Length: &emsp;
-                <strong>{{ avgStats[0] }} characters (Median: {{ avgStats[1] }})</strong></p>              
+              <p class="card-text lead" style="font-size: .9em;">Average comment length: &emsp;
+                <strong>{{ avgStats[0] }} characters (Median: {{ avgStats[1] }})</strong>
+              <br>Average comments on days engaged:&emsp;<strong>{{ daysEngaged }}  </strong></p> 
+              <p class="card-text lead" style="font-size: .9em;"><strong>Best Comment ({{ bestComment['score'] }}): </strong></p>
+              <p class="card-text lead" style="font-size: .8em;">{{ bestComment['body'][0:200] }}</p>             
+              <p class="card-text lead" style="font-size: .9em;"><strong>Worst Comment ({{ worstComment['score'] }}): </strong></p>
+              <p class="card-text lead" style="font-size: .8em;">{{ worstComment['body'][0:200] }}</p>             
           </div>
           <!-- second column row 1-->
           <div class="d-flex flex-column mt-2 justify-content-center" style="width: 30%;">

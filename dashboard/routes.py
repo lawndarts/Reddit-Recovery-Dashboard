@@ -92,10 +92,16 @@ def dashboard_page():
     AccountAge = stats.getAccountAge(reddit.user.me())
     #returns average number of comments made on days commented at least once
     #add average comments per day using age of acc / # comments and add the data below after
-    avg = stats.commentsOnDaysEngaged(comments)
+    daysEngaged = stats.commentsOnDaysEngaged(comments)
     #gets data for wordcloud
     cloudData = stats.wordsDict(comments, 35)
     mainRecoverySub = stats.getMax(topSubs[0])
+    mainRecoverySub = mainRecoverySub[0]
+    bestComment = stats.getBestComment(comments)
+    worstComment = stats.getWorstComment(comments)
+    weeklyComments = stats.weeklyComments(comments)
+    # if(len(bestComment['body']) > 200):
+    #     comBody = bestComment['body'][0:200] + '...'
 
     sortedSubDict = stats.getUpvotedSubreddits(upvotedSubmissions)
     li = list(sortedSubDict.keys())
@@ -113,9 +119,11 @@ def dashboard_page():
 
 
     return render_template('dashboard.html',jsdict=jsdict,topSubs=topSubs,avgStats=avgStats,
-            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, cloudData=cloudData, postKeys=postKeys,
-             postValues=postValues, commentKeys=commentKeys, commentValues=commentValues,totalDays = AccountAge,
-              days = daysact, post = postact)
+            li=li,upvoteCounts=upvoteCounts,maxStats=maxStats, cloudData=cloudData, daysEngaged=daysEngaged, 
+            bestComment=bestComment, worstComment=worstComment,weeklyComments=weeklyComments,
+            mainRecoverySub=mainRecoverySub,
+             postKeys=postKeys, postValues=postValues, commentKeys=commentKeys, commentValues=commentValues,
+            totalDays = AccountAge, days = daysact, post = postact)
 
 @app.route('/subreddit/<name>')
 def subreddit(name):

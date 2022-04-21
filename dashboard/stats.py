@@ -1,4 +1,5 @@
 
+from calendar import c
 from datetime import datetime, timedelta
 import numpy as np
 import json 
@@ -194,9 +195,27 @@ def commentsOnDaysEngaged(comments):
                 commentDates[strippedDate] = 1
                 totalComments += 1
     res = sum(commentDates.values()) / totalComments
-    # stats.append(res)
+    res = "{:.1f}".format(res)
     return res
 
+def getBestComment(comments):
+    max = comments[0]
+    for comment in comments:
+        if comment['score'] > max['score']:
+            max = comment
+    print(len(comment['body']))
+    
+    return max
+
+def getWorstComment(comments):
+    min = comments[0]
+    for comment in comments:
+        if comment['score'] < min['score']:
+            min = comment
+    return min
+
+def weeklyComments(comments):
+    return False #lol 
 
 #should accept all three dictionaries with their respective frequencies organized by subreddit
 def getMaxValues(comments, submissions, upvotes):
@@ -278,7 +297,8 @@ def get_comment_history(user):
             'created': comment.created_utc,
             'post': comment.submission.id,
             'subreddit': temp.display_name,
-            'body': comment.body
+            'body': comment.body,
+            'score': comment.score
         }
         comment_history.append(x)
     return comment_history
