@@ -100,7 +100,7 @@ Dashboard
         <div class="col-sm-6">
           <div class="card shadow p-2  mb-5 bg-white rounded">
             <div class="card-body flex-column">
-              <h5 class="card-title lead text-center">More User Statistics</h5>
+              <h5 class="card-title lead text-center">Recovery Subreddit Activity</h5>
               <div>
                 <p class="" style="font-size: .8em;"><br>
                   Most comments:&ensp;<strong>{{ maxStats[0][0] }}({{ maxStats[0][1] }})</strong><br>
@@ -108,9 +108,9 @@ Dashboard
                   Most upvoted submissions:&ensp;<strong>{{ maxStats[2][0] }}({{ maxStats[2][1] }})</strong><br>
                 </p>
                 <p class="card-text lead" style="font-size: .9em;"><strong>Best Comment ({{ bestComment['score'] }}): </strong></p>
-                <p class="card-text lead" style="font-size: .8em;">{{ bestComment['body'][0:200] }}....</p>             
+                <p class="card-text lead" style="font-size: .8em;">{{ bestComment['body'][0:200] }}</p>             
                 <p class="card-text lead" style="font-size: .9em;"><strong>Worst Comment ({{ worstComment['score'] }}): </strong></p>
-                <p class="card-text lead" style="font-size: .8em;">{{ worstComment['body'][0:200] }}....</p>  
+                <p class="card-text lead" style="font-size: .8em;">{{ worstComment['body'][0:200] }}</p>  
                 <br>
                 {% if weeklyComments %}
                 <p>naaa</p>
